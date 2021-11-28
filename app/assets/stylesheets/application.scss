@@ -1,0 +1,19 @@
+// @import "bootstrap-sprockets";
+@import "bootstrap";
+
+
+#product:hover  div .actions{
+    display: block;
+}
+
+div .actions {
+    display: none;
+}
+
+#productContain {
+    height: 235px;
+}
+#product:hover {
+    transform: scale(1.15);
+    transition: 0.5s;
+}

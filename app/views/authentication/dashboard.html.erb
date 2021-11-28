@@ -1,0 +1,133 @@
+<% if session[:user_id]!=nil%>
+<div class="container-fluid">
+    <div class="row flex-nowrap">
+        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
+            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+                <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                    <span class="fs-5 d-none d-sm-inline">Dashboard Menu</span>
+                </a>
+                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link align-middle px-0">
+                            <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Home</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/product/list" class="nav-link align-middle px-0">
+                            <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Products</span>
+                        </a>
+                    </li>
+                
+                    <li class="nav-item">
+                        <a href="/user/list" class="nav-link align-middle px-0">
+                            <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Users</span>
+                        </a>
+                    </li>
+                   
+                </ul>
+                <hr>
+                <div class="dropdown pb-4">
+                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
+                        <span class="d-none d-sm-inline mx-1">User</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="./signout">Sign out</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col py-3">
+            <div class="row my-4">
+            <div class="col-12 col-md-6 col-lg-3 mb-4 mb-lg-0">
+                <div class="card">
+                    <h5 class="card-header">Customers</h5>
+                    <div class="card-body">
+                        <h5 class="card-title"><%=  @users.length() -%> Active Users</h5>
+                        <p class="card-text text-success">System users </p>
+                    </div>
+                    </div>
+            </div>
+            <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-3">
+                <div class="card">
+                    <h5 class="card-header">Sales Transactions</h5>
+                    <div class="card-body">
+                        <h5 class="card-title"><%=  @sales.length() -%> Processed transactions </h5>
+                        <p class="card-text text-success">100% paid transactions</p>
+                    </div>
+                    </div>
+            </div>
+            <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-3">
+                <div class="card">
+                    <h5 class="card-header">Revenues</h5>
+                    <div class="card-body">
+                        <h5 class="card-title"><%= @totalRevenues -%></h5>
+                        <p class="card-text text-danger">100% online sales</p>
+                    </div>
+                    </div>
+            </div>
+            <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-3">
+                <div class="card">
+                    <h5 class="card-header">Stocks</h5>
+                    <div class="card-body">
+                        <h5 class="card-title"><%= @totalProducts -%></h5>
+                        <% if @totalProducts>0 %>
+                        <p class="card-text text-success">Good stock levels</p>
+                        <% else %>
+                        <p class="card-text text-danger">Good stock levels</p>
+                        <% end %>
+                    </div>
+                    </div>
+            </div>
+            </div>
+  <br>
+            <div class="row">
+  <div class="col-12 col-xl-12 mb-4 mb-lg-0">
+      <div class="card">
+          <h5 class="card-header">Sales</h5>
+          <div class="card-body">
+              <div class="table-responsive">
+                  <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col">Date</th>
+                          <th scope="col">SalesID</th>
+                          <th scope="col">ProductID</th>
+                          <th scope="col">Price</th>
+                          <th scope="col">Quantity</th>
+                          <th scope="col">Total Sold</th>
+                          <th scope="col">Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% @sales.each do |c| %>
+                            <tr scope="row">
+                            <td><%= c.date %></td>
+                            <td><%= c.id %></td>
+                            <td><%= link_to c.product_id, {:action => 'show', :controller=>'product', :id => c.product_id} -%></td>
+                            <td>AUD <%= c.price %></td>
+                            <td><%= c.quantity %></td>
+                            <td><%= c.quantity*c.price %></td>
+                            <td><%= link_to 'view product sold', {:controller=>'product',:action => 'show', :id => c.product_id} -%></td>
+                            </tr>
+                            <% end %>
+                        
+                      </tbody>
+                    </table>
+              </div>
+          </div>
+      </div>
+  </div>
+
+</div>
+  
+        </div>  
+    </div>
+    
+</div>
+<% else  %>
+<a href = "/authentication/sign"> Go to Log in </a>
+<% end %>

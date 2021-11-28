@@ -1,0 +1,50 @@
+
+<div class="card mx-auto mt-5" style="width: 50rem;">
+  <div class="card-header">
+    <h1>Add new User</h1>
+  </div>
+  <div class="card-body">
+  <%= form_tag :action => 'create' do %>
+  
+    <div class="row">
+        <div class="col-md-6">
+            <p><label for = "name">Name</label>:
+            <%= text_field 'user', 'name', :class => "form-control" %></p>
+        </div>
+        <div class="col-md-6">
+            <p><label for = "email">Email</label>:
+            <%= text_field 'user', 'email', :class => "form-control" %></p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <p><label for = "password">Password</label>:
+            <%= text_field 'user', 'password', :class => "form-control" %></p>
+        </div>
+        <div class="col-md-6">
+            <p><label for = "access_level_id">Access Level</label>:
+            <select class="form-select form-control" name="user[access_level_id]" aria-label="Default select example">
+                <option selected>Select User Access Level</option>
+                <%  @access_levels.each do |c| %>
+                    <option value="<%= c.id %>"><%= c.name %>
+                    </option>
+                    <% end %>
+            </select></p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6"> 
+            <p><label for = "address">Address</label>:
+            <%= text_area 'user', 'address', :class => "form-control" %></p>
+        </div>
+        <div class="col-md-6">
+    
+        </div>
+    </div>
+    
+    <%= submit_tag "Save User", :class => "btn btn-primary float-end" %>
+    <%= link_to 'Back to Users', {:action => 'list'}, :class =>"float-start" %> 
+    <% end -%>
+  </div>
+</div>

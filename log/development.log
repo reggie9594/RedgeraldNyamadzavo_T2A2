@@ -1,0 +1,2184 @@
+  [1m[35m (526.0ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (28.0ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (13.8ms)[0m  [1m[34mSELECT pg_try_advisory_lock(7864839756650184315)[0m
+  [1m[35m (6.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.7ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (23.7ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2021-11-27 06:56:15.561034"], ["updated_at", "2021-11-27 06:56:15.561034"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT pg_advisory_unlock(7864839756650184315)[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_try_advisory_lock(7864839756650184315)[0m
+  [1m[35m (1.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to AccessLevels (10211115133418)
+  [1m[36mTRANSACTION (6.8ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (42.7ms)[0m  [1m[35mCREATE TABLE "access_levels" ("id" bigserial primary key, "name" character varying NOT NULL, "created_at" timestamp)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (2.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "10211115133418"]]
+  [1m[36mTRANSACTION (5.9ms)[0m  [1m[35mCOMMIT[0m
+Migrating to Products (11211115133343)
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT pg_advisory_unlock(7864839756650184315)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_try_advisory_lock(7864839756650184315)[0m
+  [1m[35m (1.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to Products (11211115133343)
+  [1m[35m (2.7ms)[0m  [1m[34mSELECT pg_advisory_unlock(7864839756650184315)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_try_advisory_lock(7864839756650184315)[0m
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to Products (11211115133343)
+  [1m[36mTRANSACTION (3.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (45.2ms)[0m  [1m[35mCREATE TABLE "products" ("id" bigserial primary key, "user_id" bigint, "name" character varying(100) NOT NULL, "price" float NOT NULL, "description" text, "imageurl" text, "isDeleted" boolean DEFAULT FALSE, "quantity" integer NOT NULL, "created_at" timestamp)[0m
+  [1m[35m (8.0ms)[0m  [1m[35mCREATE INDEX "index_products_on_user_id" ON "products" ("user_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (4.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "11211115133343"]]
+  [1m[36mTRANSACTION (1.0ms)[0m  [1m[35mCOMMIT[0m
+Migrating to Users (20211115133301)
+  [1m[36mTRANSACTION (6.6ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (20.4ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "access_level_id" bigint, "name" character varying NOT NULL, "email" character varying NOT NULL, "password" character varying NOT NULL, "address" character varying NOT NULL, "created_at" timestamp)[0m
+  [1m[35m (1.6ms)[0m  [1m[35mCREATE INDEX "index_users_on_access_level_id" ON "users" ("access_level_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20211115133301"]]
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mCOMMIT[0m
+Migrating to Sales (20211115133320)
+  [1m[36mTRANSACTION (6.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (83.7ms)[0m  [1m[35mCREATE TABLE "sales" ("id" bigserial primary key, "product_id" bigint, "date" date NOT NULL, "price" float NOT NULL, "quantity" integer NOT NULL, "created_at" timestamp, CONSTRAINT "fk_rails_afd82832c8"
+FOREIGN KEY ("product_id")
+  REFERENCES "products" ("id")
+)[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE INDEX "index_sales_on_product_id" ON "sales" ("product_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20211115133320"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateAccessLevelActions (20211116132716)
+  [1m[36mTRANSACTION (5.7ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (14.8ms)[0m  [1m[35mCREATE TABLE "access_level_actions" ("id" bigserial primary key, "access_level_id" bigint, "action" character varying NOT NULL, "created_at" timestamp)[0m
+  [1m[35m (1.7ms)[0m  [1m[35mCREATE INDEX "index_access_level_actions_on_access_level_id" ON "access_level_actions" ("access_level_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20211116132716"]]
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateActiveStorageTables (20211119170753)
+  [1m[36mTRANSACTION (5.8ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (16.7ms)[0m  [1m[35mCREATE TABLE "active_storage_blobs" ("id" bigserial primary key, "key" character varying NOT NULL, "filename" character varying NOT NULL, "content_type" character varying, "metadata" text, "service_name" character varying NOT NULL, "byte_size" bigint NOT NULL, "checksum" character varying NOT NULL, "created_at" timestamp NOT NULL)[0m
+  [1m[35m (6.8ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_active_storage_blobs_on_key" ON "active_storage_blobs" ("key")[0m
+  [1m[35m (7.3ms)[0m  [1m[35mCREATE TABLE "active_storage_attachments" ("id" bigserial primary key, "name" character varying NOT NULL, "record_type" character varying NOT NULL, "record_id" bigint NOT NULL, "blob_id" bigint NOT NULL, "created_at" timestamp NOT NULL, CONSTRAINT "fk_rails_c3b3935057"
+FOREIGN KEY ("blob_id")
+  REFERENCES "active_storage_blobs" ("id")
+)[0m
+  [1m[35m (3.3ms)[0m  [1m[35mCREATE INDEX "index_active_storage_attachments_on_blob_id" ON "active_storage_attachments" ("blob_id")[0m
+  [1m[35m (2.1ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_active_storage_attachments_uniqueness" ON "active_storage_attachments" ("record_type", "record_id", "name", "blob_id")[0m
+  [1m[35m (4.5ms)[0m  [1m[35mCREATE TABLE "active_storage_variant_records" ("id" bigserial primary key, "blob_id" bigint NOT NULL, "variation_digest" character varying NOT NULL, CONSTRAINT "fk_rails_993965df05"
+FOREIGN KEY ("blob_id")
+  REFERENCES "active_storage_blobs" ("id")
+)[0m
+  [1m[35m (1.3ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_active_storage_variant_records_uniqueness" ON "active_storage_variant_records" ("blob_id", "variation_digest")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.8ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20211119170753"]]
+  [1m[36mTRANSACTION (1.6ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateProductImages (20211120103755)
+  [1m[36mTRANSACTION (25.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (16.3ms)[0m  [1m[35mCREATE TABLE "product_images" ("id" bigserial primary key, "name" character varying, "attachment" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20211120103755"]]
+  [1m[36mTRANSACTION (14.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (7.8ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT pg_advisory_unlock(7864839756650184315)[0m
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/" for 127.0.0.1 at 2021-11-27 09:31:32 +0200
+  [1m[35m (1.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /Users/redgeraldnyamadzavo/.rvm/gems/ruby-2.6.3/gems/railties-6.1.4.1/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Users/redgeraldnyamadzavo/.rvm/gems/ruby-2.6.3/gems/railties-6.1.4.1/lib/rails/templates/rails/welcome/index.html.erb (Duration: 14.7ms | Allocations: 519)
+Completed 200 OK in 106ms (Views: 24.9ms | ActiveRecord: 0.0ms | Allocations: 4322)
+
+
+Started GET "/" for 127.0.0.1 at 2021-11-27 09:34:34 +0200
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /Users/redgeraldnyamadzavo/.rvm/gems/ruby-2.6.3/gems/railties-6.1.4.1/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Users/redgeraldnyamadzavo/.rvm/gems/ruby-2.6.3/gems/railties-6.1.4.1/lib/rails/templates/rails/welcome/index.html.erb (Duration: 13.2ms | Allocations: 327)
+Completed 200 OK in 25ms (Views: 18.0ms | ActiveRecord: 0.0ms | Allocations: 1186)
+
+
+Started GET "/" for 127.0.0.1 at 2021-11-27 09:34:36 +0200
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /Users/redgeraldnyamadzavo/.rvm/gems/ruby-2.6.3/gems/railties-6.1.4.1/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Users/redgeraldnyamadzavo/.rvm/gems/ruby-2.6.3/gems/railties-6.1.4.1/lib/rails/templates/rails/welcome/index.html.erb (Duration: 1.2ms | Allocations: 45)
+Completed 200 OK in 4ms (Views: 3.3ms | ActiveRecord: 0.0ms | Allocations: 342)
+
+
+Started GET "/" for 127.0.0.1 at 2021-11-27 09:35:02 +0200
+  [1m[35m (1.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by ProductController#list as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering product/list.html.erb within layouts/application
+  [1m[36mProduct Load (24.9ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."isDeleted" = $1[0m  [["isDeleted", false]]
+  ↳ app/views/product/list.html.erb:16
+  Rendered product/list.html.erb within layouts/application (Duration: 39.9ms | Allocations: 2195)
+[Webpacker] Compiling...
+[Webpacker] Compiled all packs in /Users/redgeraldnyamadzavo/Desktop/RubyOnRails/postgress/myapp/public/packs
+[Webpacker] Hash: e2a8a876c5815bee1e21
+Version: webpack 4.46.0
+Time: 3488ms
+Built at: 27/11/2021 09:35:15
+                                     Asset       Size       Chunks                         Chunk Names
+    js/application-e421b4aa3f716bebdab1.js    125 KiB  application  [emitted] [immutable]  application
+js/application-e421b4aa3f716bebdab1.js.map    139 KiB  application  [emitted] [dev]        application
+                             manifest.json  364 bytes               [emitted]              
+Entrypoint application = js/application-e421b4aa3f716bebdab1.js js/application-e421b4aa3f716bebdab1.js.map
+[./app/javascript/channels sync recursive _channel\.js$] ./app/javascript/channels sync _channel\.js$ 160 bytes {application} [built]
+[./app/javascript/channels/index.js] 211 bytes {application} [built]
+[./app/javascript/packs/application.js] 492 bytes {application} [built]
+[./node_modules/webpack/buildin/module.js] (webpack)/buildin/module.js 552 bytes {application} [built]
+    + 3 hidden modules
+
+  Rendered layout layouts/application.html.erb (Duration: 12595.2ms | Allocations: 18907)
+Completed 200 OK in 12671ms (Views: 12577.4ms | ActiveRecord: 51.7ms | Allocations: 24527)
+
+
+Started GET "/uploads/product_image/attachment/icon/cart.svg" for 127.0.0.1 at 2021-11-27 09:35:15 +0200
+  
+ActionController::RoutingError (No route matches [GET] "/uploads/product_image/attachment/icon/cart.svg"):
+  
+Started GET "/" for 127.0.0.1 at 2021-11-27 09:37:51 +0200
+Processing by ProductController#list as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering product/list.html.erb within layouts/application
+  [1m[36mProduct Load (1.1ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."isDeleted" = $1[0m  [["isDeleted", false]]
+  ↳ app/views/product/list.html.erb:16
+  Rendered product/list.html.erb within layouts/application (Duration: 20.0ms | Allocations: 815)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 2822.1ms | Allocations: 69073)
+Completed 200 OK in 2845ms (Views: 2825.0ms | ActiveRecord: 1.1ms | Allocations: 69659)
+
+
+Started GET "/uploads/product_image/attachment/icon/cart.svg" for 127.0.0.1 at 2021-11-27 09:37:54 +0200
+  
+ActionController::RoutingError (No route matches [GET] "/uploads/product_image/attachment/icon/cart.svg"):
+  
+Started GET "/" for 127.0.0.1 at 2021-11-27 09:38:04 +0200
+Processing by ProductController#list as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering product/list.html.erb within layouts/application
+  [1m[36mProduct Load (0.7ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."isDeleted" = $1[0m  [["isDeleted", false]]
+  ↳ app/views/product/list.html.erb:16
+  Rendered product/list.html.erb within layouts/application (Duration: 6.1ms | Allocations: 745)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 26.7ms | Allocations: 7877)
+Completed 200 OK in 29ms (Views: 27.0ms | ActiveRecord: 0.7ms | Allocations: 8349)
+
+
+Started GET "/uploads/product_image/attachment/icon/cart.svg" for 127.0.0.1 at 2021-11-27 09:38:04 +0200
+  
+ActionController::RoutingError (No route matches [GET] "/uploads/product_image/attachment/icon/cart.svg"):
+  
+Started GET "/" for 127.0.0.1 at 2021-11-27 09:38:31 +0200
+  [1m[35m (7.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by ProductController#list as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering product/list.html.erb within layouts/application
+  [1m[36mProduct Load (1.6ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."isDeleted" = $1[0m  [["isDeleted", false]]
+  ↳ app/views/product/list.html.erb:16
+  Rendered product/list.html.erb within layouts/application (Duration: 14.0ms | Allocations: 2195)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 12086.6ms | Allocations: 118985)
+Completed 200 OK in 12147ms (Views: 12093.3ms | ActiveRecord: 4.5ms | Allocations: 124123)
+
+
+Started GET "/uploads/product_image/attachment/icon/cart.svg" for 127.0.0.1 at 2021-11-27 09:38:44 +0200
+  
+ActionController::RoutingError (No route matches [GET] "/uploads/product_image/attachment/icon/cart.svg"):
+  
+Started GET "/" for 127.0.0.1 at 2021-11-27 09:42:29 +0200
+Processing by ProductController#list as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering product/list.html.erb within layouts/application
+  [1m[36mProduct Load (1.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."isDeleted" = $1[0m  [["isDeleted", false]]
+  ↳ app/views/product/list.html.erb:16
+  Rendered product/list.html.erb within layouts/application (Duration: 15.3ms | Allocations: 804)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 68.5ms | Allocations: 8717)
+Completed 200 OK in 92ms (Views: 72.9ms | ActiveRecord: 1.2ms | Allocations: 9291)
+
+
+Started GET "/product/new" for 127.0.0.1 at 2021-11-27 09:42:49 +0200
+Processing by ProductController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering product/new.html.erb within layouts/application
+  Rendered product/new.html.erb within layouts/application (Duration: 2.6ms | Allocations: 392)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 26.5ms | Allocations: 8159)
+Completed 200 OK in 94ms (Views: 27.3ms | ActiveRecord: 44.7ms | Allocations: 13074)
+
+
+Started GET "/authentication/sign" for 127.0.0.1 at 2021-11-27 09:42:53 +0200
+Processing by AuthenticationController#sign as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering authentication/sign.html.erb within layouts/application
+  Rendered authentication/sign.html.erb within layouts/application (Duration: 9.6ms | Allocations: 1611)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 36.6ms | Allocations: 9321)
+Completed 200 OK in 41ms (Views: 39.8ms | ActiveRecord: 0.0ms | Allocations: 10225)
+
+
+Started GET "/user/new" for 127.0.0.1 at 2021-11-27 09:43:02 +0200
+Processing by UserController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering user/new.html.erb within layouts/application
+  [1m[36mAccessLevel Load (14.6ms)[0m  [1m[34mSELECT "access_levels".* FROM "access_levels"[0m
+  ↳ app/views/user/new.html.erb:28
+  Rendered user/new.html.erb within layouts/application (Duration: 28.6ms | Allocations: 1663)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 43.9ms | Allocations: 9386)
+Completed 200 OK in 91ms (Views: 33.1ms | ActiveRecord: 22.2ms | Allocations: 14969)
+
+
+Started GET "/access_level/new" for ::1 at 2021-11-27 09:44:04 +0200
+Processing by AccessLevelController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering access_level/new.html.erb within layouts/application
+  Rendered access_level/new.html.erb within layouts/application (Duration: 4.3ms | Allocations: 520)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 27.9ms | Allocations: 8246)
+Completed 200 OK in 67ms (Views: 31.8ms | ActiveRecord: 20.8ms | Allocations: 10682)
+
+
+Started GET "/access_level/new" for ::1 at 2021-11-27 09:44:10 +0200
+Processing by AccessLevelController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering access_level/new.html.erb within layouts/application
+  Rendered access_level/new.html.erb within layouts/application (Duration: 1.5ms | Allocations: 302)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 16.6ms | Allocations: 8060)
+Completed 200 OK in 18ms (Views: 17.3ms | ActiveRecord: 0.0ms | Allocations: 8457)
+
+
+Started POST "/access_level/create" for ::1 at 2021-11-27 09:44:20 +0200
+Processing by AccessLevelController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "access_level"=>{"name"=>"Admin"}, "commit"=>"Create"}
+  [1m[36mTRANSACTION (6.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/access_level_controller.rb:17:in `create'
+  [1m[36mAccessLevel Create (22.6ms)[0m  [1m[32mINSERT INTO "access_levels" ("name", "created_at") VALUES ($1, $2) RETURNING "id"[0m  [["name", "Admin"], ["created_at", "2021-11-27 07:44:20.480187"]]
+  ↳ app/controllers/access_level_controller.rb:17:in `create'
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/access_level_controller.rb:17:in `create'
+Redirected to http://localhost:3000/access_level/list
+Completed 302 Found in 43ms (ActiveRecord: 29.4ms | Allocations: 2561)
+
+
+Started GET "/access_level/list" for ::1 at 2021-11-27 09:44:20 +0200
+Processing by AccessLevelController#list as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering access_level/list.html.erb within layouts/application
+  [1m[36mAccessLevel Load (0.4ms)[0m  [1m[34mSELECT "access_levels".* FROM "access_levels"[0m
+  ↳ app/views/access_level/list.html.erb:1
+  Rendered access_level/list.html.erb within layouts/application (Duration: 6.6ms | Allocations: 1090)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 21.1ms | Allocations: 8854)
+Completed 200 OK in 23ms (Views: 21.4ms | ActiveRecord: 0.4ms | Allocations: 9372)
+
+
+Started GET "/user/new" for 127.0.0.1 at 2021-11-27 09:44:36 +0200
+Processing by UserController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering user/new.html.erb within layouts/application
+  [1m[36mAccessLevel Load (1.2ms)[0m  [1m[34mSELECT "access_levels".* FROM "access_levels"[0m
+  ↳ app/views/user/new.html.erb:28
+  Rendered user/new.html.erb within layouts/application (Duration: 19.8ms | Allocations: 1101)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 61.8ms | Allocations: 8864)
+Completed 200 OK in 73ms (Views: 64.4ms | ActiveRecord: 1.2ms | Allocations: 9288)
+
+
+Started POST "/user/create" for 127.0.0.1 at 2021-11-27 09:45:01 +0200
+Processing by UserController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"name"=>"test@test.com", "email"=>"test@test.com", "password"=>"[FILTERED]", "access_level_id"=>"Select User Access Level", "address"=>"200 nsw, aust"}, "commit"=>"Save User"}
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/user_controller.rb:20:in `create'
+  [1m[36mAccessLevel Load (1.1ms)[0m  [1m[34mSELECT "access_levels".* FROM "access_levels" WHERE "access_levels"."id" = $1 LIMIT $2[0m  [["id", 0], ["LIMIT", 1]]
+  ↳ app/controllers/user_controller.rb:20:in `create'
+  [1m[36mUser Exists? (21.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "test@test.com"], ["LIMIT", 1]]
+  ↳ app/controllers/user_controller.rb:20:in `create'
+  [1m[36mTRANSACTION (21.4ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/user_controller.rb:20:in `create'
+Completed 422 Unprocessable Entity in 194ms (ActiveRecord: 44.0ms | Allocations: 14437)
+
+
+  
+ActiveRecord::RecordInvalid (Validation failed: Access level must exist):
+  
+app/controllers/user_controller.rb:20:in `create'
+Started GET "/user/new" for 127.0.0.1 at 2021-11-27 09:45:06 +0200
+Processing by UserController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering user/new.html.erb within layouts/application
+  [1m[36mAccessLevel Load (0.6ms)[0m  [1m[34mSELECT "access_levels".* FROM "access_levels"[0m
+  ↳ app/views/user/new.html.erb:28
+  Rendered user/new.html.erb within layouts/application (Duration: 11.7ms | Allocations: 1081)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 46.6ms | Allocations: 8840)
+Completed 200 OK in 49ms (Views: 47.0ms | ActiveRecord: 0.6ms | Allocations: 9255)
+
+
+Started POST "/user/create" for 127.0.0.1 at 2021-11-27 09:45:10 +0200
+Processing by UserController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"name"=>"test@test.com", "email"=>"test@test.com", "password"=>"[FILTERED]", "access_level_id"=>"1", "address"=>"200 nsw, aust"}, "commit"=>"Save User"}
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/user_controller.rb:20:in `create'
+  [1m[36mAccessLevel Load (1.0ms)[0m  [1m[34mSELECT "access_levels".* FROM "access_levels" WHERE "access_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/user_controller.rb:20:in `create'
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "test@test.com"], ["LIMIT", 1]]
+  ↳ app/controllers/user_controller.rb:20:in `create'
+  [1m[36mUser Create (7.0ms)[0m  [1m[32mINSERT INTO "users" ("access_level_id", "name", "email", "password", "address", "created_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["access_level_id", 1], ["name", "test@test.com"], ["email", "test@test.com"], ["password", "test@test.com"], ["address", "200 nsw, aust"], ["created_at", "2021-11-27 07:45:10.473164"]]
+  ↳ app/controllers/user_controller.rb:20:in `create'
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/user_controller.rb:20:in `create'
+Redirected to http://127.0.0.1:3000/user/list
+Completed 302 Found in 43ms (ActiveRecord: 9.6ms | Allocations: 4391)
+
+
+Started GET "/user/list" for 127.0.0.1 at 2021-11-27 09:45:10 +0200
+Processing by UserController#list as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering user/list.html.erb within layouts/application
+  Rendered user/list.html.erb within layouts/application (Duration: 1.2ms | Allocations: 361)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 18.0ms | Allocations: 8126)
+Completed 200 OK in 20ms (Views: 18.9ms | ActiveRecord: 0.0ms | Allocations: 8650)
+
+
+Started GET "/authentication/sign" for 127.0.0.1 at 2021-11-27 09:45:24 +0200
+Processing by AuthenticationController#sign as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering authentication/sign.html.erb within layouts/application
+  Rendered authentication/sign.html.erb within layouts/application (Duration: 6.1ms | Allocations: 359)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 38.5ms | Allocations: 8765)
+Completed 200 OK in 41ms (Views: 39.4ms | ActiveRecord: 0.0ms | Allocations: 9132)
+
+
+Started POST "/authentication/signin" for 127.0.0.1 at 2021-11-27 09:45:32 +0200
+Processing by AuthenticationController#signin as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"email"=>"test@test.com", "password"=>"[FILTERED]"}, "commit"=>"Sign In"}
+  [1m[36mUser Load (6.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "test@test.com"], ["LIMIT", 1]]
+  ↳ app/controllers/authentication_controller.rb:6:in `signin'
+Redirected to http://127.0.0.1:3000/authentication/dashboard?notice=Logged+in+successfully
+Completed 302 Found in 21ms (ActiveRecord: 6.5ms | Allocations: 1131)
+
+
+Started GET "/authentication/dashboard?notice=Logged+in+successfully" for 127.0.0.1 at 2021-11-27 09:45:32 +0200
+Processing by AuthenticationController#dashboard as HTML
+  Parameters: {"notice"=>"Logged in successfully"}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  [1m[36mSale Load (19.6ms)[0m  [1m[34mSELECT "sales".* FROM "sales"[0m
+  ↳ app/controllers/authentication_controller.rb:34:in `dashboard'
+  [1m[36mProduct Load (0.7ms)[0m  [1m[34mSELECT "products".* FROM "products"[0m
+  ↳ app/controllers/authentication_controller.rb:40:in `dashboard'
+  Rendering layout layouts/application.html.erb
+  Rendering authentication/dashboard.html.erb within layouts/application
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/views/authentication/dashboard.html.erb:49
+  Rendered authentication/dashboard.html.erb within layouts/application (Duration: 4.9ms | Allocations: 1247)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 65.0ms | Allocations: 8940)
+Completed 200 OK in 148ms (Views: 67.9ms | ActiveRecord: 26.4ms | Allocations: 14901)
+
+
+Started GET "/authentication/signout" for 127.0.0.1 at 2021-11-27 09:46:26 +0200
+Processing by AuthenticationController#signout as HTML
+  [1m[36mUser Load (1.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+Redirected to http://127.0.0.1:3000/authentication/sign?notice=Logged+Out
+Completed 302 Found in 26ms (ActiveRecord: 1.2ms | Allocations: 918)
+
+
+Started GET "/authentication/sign?notice=Logged+Out" for 127.0.0.1 at 2021-11-27 09:46:26 +0200
+Processing by AuthenticationController#sign as HTML
+  Parameters: {"notice"=>"Logged Out"}
+  Rendering layout layouts/application.html.erb
+  Rendering authentication/sign.html.erb within layouts/application
+  Rendered authentication/sign.html.erb within layouts/application (Duration: 4.0ms | Allocations: 357)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 51.0ms | Allocations: 8100)
+Completed 200 OK in 55ms (Views: 54.0ms | ActiveRecord: 0.0ms | Allocations: 8474)
+
+
+Started POST "/authentication/signin" for 127.0.0.1 at 2021-11-27 09:46:30 +0200
+Processing by AuthenticationController#signin as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"email"=>"test@test.com", "password"=>"[FILTERED]"}, "commit"=>"Sign In"}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "test@test.com"], ["LIMIT", 1]]
+  ↳ app/controllers/authentication_controller.rb:6:in `signin'
+Redirected to http://127.0.0.1:3000/authentication/dashboard?notice=Logged+in+successfully
+Completed 302 Found in 7ms (ActiveRecord: 0.6ms | Allocations: 1018)
+
+
+Started GET "/authentication/dashboard?notice=Logged+in+successfully" for 127.0.0.1 at 2021-11-27 09:46:30 +0200
+Processing by AuthenticationController#dashboard as HTML
+  Parameters: {"notice"=>"Logged in successfully"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  [1m[36mSale Load (1.2ms)[0m  [1m[34mSELECT "sales".* FROM "sales"[0m
+  ↳ app/controllers/authentication_controller.rb:34:in `dashboard'
+  [1m[36mProduct Load (0.4ms)[0m  [1m[34mSELECT "products".* FROM "products"[0m
+  ↳ app/controllers/authentication_controller.rb:40:in `dashboard'
+  Rendering layout layouts/application.html.erb
+  Rendering authentication/dashboard.html.erb within layouts/application
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/views/authentication/dashboard.html.erb:49
+  Rendered authentication/dashboard.html.erb within layouts/application (Duration: 3.2ms | Allocations: 719)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 19.5ms | Allocations: 8464)
+Completed 200 OK in 37ms (Views: 20.3ms | ActiveRecord: 2.3ms | Allocations: 10623)
+
+
+Started GET "/product/list" for 127.0.0.1 at 2021-11-27 09:46:32 +0200
+Processing by ProductController#list as HTML
+  [1m[36mUser Load (8.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering product/list.html.erb within layouts/application
+  [1m[36mProduct Load (12.8ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."isDeleted" = $1[0m  [["isDeleted", false]]
+  ↳ app/views/product/list.html.erb:16
+  Rendered product/list.html.erb within layouts/application (Duration: 16.3ms | Allocations: 840)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 50.2ms | Allocations: 8608)
+Completed 200 OK in 81ms (Views: 38.3ms | ActiveRecord: 21.3ms | Allocations: 10223)
+
+
+Started GET "/product/new" for 127.0.0.1 at 2021-11-27 09:46:38 +0200
+Processing by ProductController#new as HTML
+  [1m[36mUser Load (12.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering product/new.html.erb within layouts/application
+  Rendered product/new.html.erb within layouts/application (Duration: 90.1ms | Allocations: 3481)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 110.2ms | Allocations: 11142)
+Completed 200 OK in 130ms (Views: 111.1ms | ActiveRecord: 12.6ms | Allocations: 12822)
+
+
+Started POST "/product/create?method=post&multipart=true" for 127.0.0.1 at 2021-11-27 09:47:01 +0200
+Processing by ProductController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "product"=>{"name"=>"test", "description"=>"test", "price"=>"12.01", "quantity"=>"1", "user_id"=>"1"}, "commit"=>"Create Product", "method"=>"post", "multipart"=>"true"}
+  [1m[36mUser Load (1.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/product_controller.rb:23:in `create'
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/product_controller.rb:23:in `create'
+  [1m[36mProduct Create (20.8ms)[0m  [1m[32mINSERT INTO "products" ("user_id", "name", "price", "description", "quantity", "created_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["user_id", 1], ["name", "test"], ["price", 12.01], ["description", "test"], ["quantity", 1], ["created_at", "2021-11-27 07:47:01.469312"]]
+  ↳ app/controllers/product_controller.rb:23:in `create'
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/product_controller.rb:23:in `create'
+Redirected to http://127.0.0.1:3000/product_image/new
+Completed 302 Found in 90ms (ActiveRecord: 23.7ms | Allocations: 4864)
+
+
+Started GET "/product_image/new" for 127.0.0.1 at 2021-11-27 09:47:01 +0200
+Processing by ProductImageController#new as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+Completed 500 Internal Server Error in 38ms (ActiveRecord: 0.4ms | Allocations: 3914)
+
+
+  
+NameError (uninitialized constant #<Class:0x00007fb9238585e8>::AttachmentUploader):
+  
+app/models/product_image.rb:2:in `<class:ProductImage>'
+app/models/product_image.rb:1:in `<main>'
+app/controllers/product_image_controller.rb:7:in `new'
+Started GET "/product/new" for 127.0.0.1 at 2021-11-27 09:48:14 +0200
+Processing by ProductController#new as HTML
+  [1m[36mUser Load (1.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering product/new.html.erb within layouts/application
+  Rendered product/new.html.erb within layouts/application (Duration: 6.9ms | Allocations: 471)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 46.4ms | Allocations: 8230)
+Completed 200 OK in 68ms (Views: 49.4ms | ActiveRecord: 1.2ms | Allocations: 9232)
+
+
+Started POST "/product/create?method=post&multipart=true" for 127.0.0.1 at 2021-11-27 09:48:17 +0200
+Processing by ProductController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "product"=>{"name"=>"test", "description"=>"test", "price"=>"12.01", "quantity"=>"1", "user_id"=>"1"}, "commit"=>"Create Product", "method"=>"post", "multipart"=>"true"}
+  [1m[36mUser Load (1.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/product_controller.rb:23:in `create'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/product_controller.rb:23:in `create'
+  [1m[36mProduct Create (3.7ms)[0m  [1m[32mINSERT INTO "products" ("user_id", "name", "price", "description", "quantity", "created_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["user_id", 1], ["name", "test"], ["price", 12.01], ["description", "test"], ["quantity", 1], ["created_at", "2021-11-27 07:48:17.425260"]]
+  ↳ app/controllers/product_controller.rb:23:in `create'
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/product_controller.rb:23:in `create'
+Redirected to http://127.0.0.1:3000/product_image/new
+Completed 302 Found in 47ms (ActiveRecord: 6.2ms | Allocations: 3974)
+
+
+Started GET "/product_image/new" for 127.0.0.1 at 2021-11-27 09:48:17 +0200
+Processing by ProductImageController#new as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering product_image/new.html.erb within layouts/application
+  Rendered product_image/new.html.erb within layouts/application (Duration: 6.2ms | Allocations: 1438)
+  Rendered layout layouts/application.html.erb (Duration: 7.2ms | Allocations: 1509)
+Completed 500 Internal Server Error in 42ms (ActiveRecord: 7.3ms | Allocations: 5264)
+
+
+  
+ActionView::SyntaxErrorInTemplate (Encountered a syntax error while rendering template: check <% session[:user_id]!=nil %>
+<div class="container">   
+<% if !@product_image.errors.empty? %>   
+     <div>   
+        <ul>   
+         <% @product_image.errors.full_messages.each do |msg| %>   
+            <li><%= msg %></li>   
+         <% end %>
+        </ul>
+    </div>
+    <% end %>   
+</div>
+
+<div class="container">   
+<% if !@product_image.errors.empty? %>   
+   <div>    
+        <ul>   
+            <% @product_image.errors.full_messages.each do |msg| %>   
+            <li><%= msg %></li>   
+            <% end %>     
+        </ul>   
+   </div>   
+<% end %>   
+</div>
+
+<div class="card mx-auto mt-5" style="width: 30rem;">   
+<div class="card-header">
+    <center><h1>Add Product Image<h1></center>
+  </div>
+   <%= form_for :product_image, html: { multipart: true } do |f| %>   
+      <%= f.label :name, :class =>'d-none' %>   
+      <%= f.text_field :name, :value=> session[:product_id], :class =>'d-none' -%>   
+      <br><br>   
+      <%= f.label :attachment -%>   
+      <%= f.file_field :attachment, :class => "form-control" %>   
+      <br>   
+      <%= f.submit "Save Image", :class => "btn btn-primary float-end" %>   
+   <% end %>   
+</div>   
+</div>  
+<% else %>
+<a href = "/authentication/sign"> Go to Log in </a>
+<% end %>
+):
+1:    <% session[:user_id]!=nil %>
+2:    <div class="container">   
+3:    <% if !@product_image.errors.empty? %>   
+4:         <div>   
+5:            <ul>   
+6:             <% @product_image.errors.full_messages.each do |msg| %>   
+7:                <li><%= msg %></li>   
+8:             <% end %>
+9:            </ul>
+10:        </div>
+11:        <% end %>   
+12:    </div>
+13:    
+14:    <div class="container">   
+15:    <% if !@product_image.errors.empty? %>   
+16:       <div>    
+17:            <ul>   
+18:                <% @product_image.errors.full_messages.each do |msg| %>   
+19:                <li><%= msg %></li>   
+20:                <% end %>     
+21:            </ul>   
+22:       </div>   
+23:    <% end %>   
+24:    </div>
+25:    
+26:    <div class="card mx-auto mt-5" style="width: 30rem;">   
+27:    <div class="card-header">
+28:        <center><h1>Add Product Image<h1></center>
+29:      </div>
+30:       <%= form_for :product_image, html: { multipart: true } do |f| %>   
+31:          <%= f.label :name, :class =>'d-none' %>   
+32:          <%= f.text_field :name, :value=> session[:product_id], :class =>'d-none' -%>   
+33:          <br><br>   
+34:          <%= f.label :attachment -%>   
+35:          <%= f.file_field :attachment, :class => "form-control" %>   
+36:          <br>   
+37:          <%= f.submit "Save Image", :class => "btn btn-primary float-end" %>   
+38:       <% end %>   
+39:    </div>   
+40:    </div>  
+41:    <% else %>
+42:    <a href = "/authentication/sign"> Go to Log in </a>
+43:    <% end %>
+  
+app/views/product_image/new.html.erb:39: else without rescue is useless
+app/views/product_image/new.html.erb:43: syntax error, unexpected end, expecting end-of-input
+app/views/product_image/new.html.erb:39: else without rescue is useless
+app/views/product_image/new.html.erb:43: syntax error, unexpected end, expecting end-of-input
+app/views/product_image/new.html.erb:39: else without rescue is useless
+app/views/product_image/new.html.erb:43: syntax error, unexpected end, expecting end-of-input
+app/views/product_image/new.html.erb:39: else without rescue is useless
+app/views/product_image/new.html.erb:43: syntax error, unexpected end, expecting end-of-input
+app/views/product_image/new.html.erb:39: else without rescue is useless
+app/views/product_image/new.html.erb:43: syntax error, unexpected end, expecting end-of-input
+app/views/product_image/new.html.erb:39: else without rescue is useless
+app/views/product_image/new.html.erb:43: syntax error, unexpected end, expecting end-of-input
+Started GET "/product/new" for 127.0.0.1 at 2021-11-27 09:49:18 +0200
+Processing by ProductController#new as HTML
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering product/new.html.erb within layouts/application
+  Rendered product/new.html.erb within layouts/application (Duration: 9.2ms | Allocations: 815)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 46.7ms | Allocations: 8865)
+Completed 200 OK in 73ms (Views: 52.7ms | ActiveRecord: 0.9ms | Allocations: 10610)
+
+
+Started POST "/product/create?method=post&multipart=true" for 127.0.0.1 at 2021-11-27 09:49:20 +0200
+Processing by ProductController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "product"=>{"name"=>"test", "description"=>"test", "price"=>"12.01", "quantity"=>"1", "user_id"=>"1"}, "commit"=>"Create Product", "method"=>"post", "multipart"=>"true"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/product_controller.rb:23:in `create'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/product_controller.rb:23:in `create'
+  [1m[36mProduct Create (0.9ms)[0m  [1m[32mINSERT INTO "products" ("user_id", "name", "price", "description", "quantity", "created_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["user_id", 1], ["name", "test"], ["price", 12.01], ["description", "test"], ["quantity", 1], ["created_at", "2021-11-27 07:49:20.189807"]]
+  ↳ app/controllers/product_controller.rb:23:in `create'
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/product_controller.rb:23:in `create'
+Redirected to http://127.0.0.1:3000/product_image/new
+Completed 302 Found in 32ms (ActiveRecord: 2.0ms | Allocations: 3973)
+
+
+Started GET "/product_image/new" for 127.0.0.1 at 2021-11-27 09:49:20 +0200
+Processing by ProductImageController#new as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering product_image/new.html.erb within layouts/application
+  Rendered product_image/new.html.erb within layouts/application (Duration: 38.7ms | Allocations: 4856)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 54.6ms | Allocations: 12520)
+Completed 200 OK in 64ms (Views: 58.2ms | ActiveRecord: 0.3ms | Allocations: 14037)
+
+
+Started POST "/product_image/new" for 127.0.0.1 at 2021-11-27 09:49:33 +0200
+Processing by ProductImageController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "product_image"=>{"name"=>"3", "attachment"=>#<ActionDispatch::Http::UploadedFile:0x00007fb922522730 @tempfile=#<Tempfile:/var/folders/2n/8t94p41n7g9318t5lr3m_bj40000gn/T/RackMultipart20211127-17138-1y5p1x0.jpeg>, @original_filename="bike.jpeg", @content_type="image/jpeg", @headers="Content-Disposition: form-data; name=\"product_image[attachment]\"; filename=\"bike.jpeg\"\r\nContent-Type: image/jpeg\r\n">}, "commit"=>"Save Image"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  [1m[36mProduct Load (6.7ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/product_image_controller.rb:13:in `create'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/product_image_controller.rb:14:in `create'
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/product_image_controller.rb:14:in `create'
+  [1m[36mProduct Update (10.7ms)[0m  [1m[33mUPDATE "products" SET "imageurl" = $1 WHERE "products"."id" = $2[0m  [["imageurl", "/uploads/product_image/attachment/3/bike.jpeg"], ["id", 3]]
+  ↳ app/controllers/product_image_controller.rb:14:in `create'
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/product_image_controller.rb:14:in `create'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/product_image_controller.rb:15:in `create'
+  [1m[36mProductImage Create (7.9ms)[0m  [1m[32mINSERT INTO "product_images" ("id", "name", "attachment", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["id", 3], ["name", "3"], ["attachment", "#<ActionDispatch::Http::UploadedFile:0x00007fb922522730>"], ["created_at", "2021-11-27 07:49:33.531242"], ["updated_at", "2021-11-27 07:49:33.531242"]]
+  ↳ app/controllers/product_image_controller.rb:15:in `create'
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/product_image_controller.rb:15:in `create'
+Redirected to http://127.0.0.1:3000/?notice=Successfully+uploaded.
+Completed 302 Found in 64ms (ActiveRecord: 27.1ms | Allocations: 6773)
+
+
+Started GET "/?notice=Successfully+uploaded." for 127.0.0.1 at 2021-11-27 09:49:33 +0200
+Processing by ProductController#list as HTML
+  Parameters: {"notice"=>"Successfully uploaded."}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering product/list.html.erb within layouts/application
+  [1m[36mProduct Load (0.4ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."isDeleted" = $1[0m  [["isDeleted", false]]
+  ↳ app/views/product/list.html.erb:16
+  Rendered product/list.html.erb within layouts/application (Duration: 9.8ms | Allocations: 2412)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 27.4ms | Allocations: 10173)
+Completed 200 OK in 33ms (Views: 27.7ms | ActiveRecord: 0.6ms | Allocations: 11365)
+
+
+Started GET "/uploads/product_image/attachment/3/bike.jpeg" for 127.0.0.1 at 2021-11-27 09:49:33 +0200
+  
+ActionController::RoutingError (No route matches [GET] "/uploads/product_image/attachment/3/bike.jpeg"):
+  
+Started GET "/access_level/list" for ::1 at 2021-11-27 09:55:20 +0200
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by AccessLevelController#list as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering access_level/list.html.erb within layouts/application
+  [1m[36mAccessLevel Load (1.1ms)[0m  [1m[34mSELECT "access_levels".* FROM "access_levels"[0m
+  ↳ app/views/access_level/list.html.erb:1
+  Rendered access_level/list.html.erb within layouts/application (Duration: 18.0ms | Allocations: 4264)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 217.7ms | Allocations: 22331)
+Completed 200 OK in 256ms (Views: 221.6ms | ActiveRecord: 5.7ms | Allocations: 25374)
+
+
+Started GET "/?notice=Successfully+uploaded." for 127.0.0.1 at 2021-11-27 09:55:25 +0200
+Processing by ProductController#list as HTML
+  Parameters: {"notice"=>"Successfully uploaded."}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering product/list.html.erb within layouts/application
+  [1m[36mProduct Load (0.6ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."isDeleted" = $1[0m  [["isDeleted", false]]
+  ↳ app/views/product/list.html.erb:16
+  Rendered product/list.html.erb within layouts/application (Duration: 16.3ms | Allocations: 6741)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 28.7ms | Allocations: 14535)
+Completed 200 OK in 96ms (Views: 28.6ms | ActiveRecord: 8.9ms | Allocations: 22675)
+
+
+Started GET "/uploads/product_image/attachment/3/bike.jpeg" for 127.0.0.1 at 2021-11-27 09:55:25 +0200
+  
+ActionController::RoutingError (No route matches [GET] "/uploads/product_image/attachment/3/bike.jpeg"):
+  
+Started GET "/?notice=Successfully+uploaded." for 127.0.0.1 at 2021-11-27 09:56:23 +0200
+Processing by ProductController#list as HTML
+  Parameters: {"notice"=>"Successfully uploaded."}
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering product/list.html.erb within layouts/application
+  [1m[36mProduct Load (0.4ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."isDeleted" = $1[0m  [["isDeleted", false]]
+  ↳ app/views/product/list.html.erb:16
+  Rendered product/list.html.erb within layouts/application (Duration: 11.5ms | Allocations: 1587)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 45.8ms | Allocations: 9544)
+Completed 200 OK in 67ms (Views: 48.5ms | ActiveRecord: 1.6ms | Allocations: 10796)
+
+
+Started GET "/uploads/product_image/attachment/3/bike.jpeg" for 127.0.0.1 at 2021-11-27 09:56:23 +0200
+  
+ActionController::RoutingError (No route matches [GET] "/uploads/product_image/attachment/3/bike.jpeg"):
+  
+Started GET "/?notice=Successfully+uploaded." for 127.0.0.1 at 2021-11-27 09:56:25 +0200
+Processing by ProductController#list as HTML
+  Parameters: {"notice"=>"Successfully uploaded."}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering product/list.html.erb within layouts/application
+  [1m[36mProduct Load (0.3ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."isDeleted" = $1[0m  [["isDeleted", false]]
+  ↳ app/views/product/list.html.erb:16
+  Rendered product/list.html.erb within layouts/application (Duration: 6.6ms | Allocations: 1500)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 25.5ms | Allocations: 9329)
+Completed 200 OK in 33ms (Views: 25.8ms | ActiveRecord: 0.7ms | Allocations: 10406)
+
+
+Started GET "/uploads/product_image/attachment/3/bike.jpeg" for 127.0.0.1 at 2021-11-27 09:56:25 +0200
+  
+ActionController::RoutingError (No route matches [GET] "/uploads/product_image/attachment/3/bike.jpeg"):
+  
+Started GET "/delete?id=2" for 127.0.0.1 at 2021-11-27 09:56:29 +0200
+Processing by ProductController#delete as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  [1m[36mProduct Load (8.8ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/product_controller.rb:56:in `delete'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/product_controller.rb:58:in `delete'
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/product_controller.rb:58:in `delete'
+  [1m[36mProduct Update (0.7ms)[0m  [1m[33mUPDATE "products" SET "isDeleted" = $1 WHERE "products"."id" = $2[0m  [["isDeleted", true], ["id", 2]]
+  ↳ app/controllers/product_controller.rb:58:in `delete'
+  [1m[36mTRANSACTION (1.3ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/product_controller.rb:58:in `delete'
+Redirected to http://127.0.0.1:3000/
+Completed 302 Found in 290ms (ActiveRecord: 11.4ms | Allocations: 9421)
+
+
+Started GET "/" for 127.0.0.1 at 2021-11-27 09:56:29 +0200
+Processing by ProductController#list as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering product/list.html.erb within layouts/application
+  [1m[36mProduct Load (0.4ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."isDeleted" = $1[0m  [["isDeleted", false]]
+  ↳ app/views/product/list.html.erb:16
+  Rendered product/list.html.erb within layouts/application (Duration: 4.1ms | Allocations: 1247)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 16.8ms | Allocations: 9076)
+Completed 200 OK in 23ms (Views: 17.1ms | ActiveRecord: 0.8ms | Allocations: 10147)
+
+
+Started GET "/uploads/product_image/attachment/3/bike.jpeg" for 127.0.0.1 at 2021-11-27 09:56:30 +0200
+  
+ActionController::RoutingError (No route matches [GET] "/uploads/product_image/attachment/3/bike.jpeg"):
+  
+Started GET "/delete?id=3" for 127.0.0.1 at 2021-11-27 09:56:32 +0200
+Processing by ProductController#delete as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mUser Load (46.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  [1m[36mProduct Load (1.1ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/product_controller.rb:56:in `delete'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/product_controller.rb:58:in `delete'
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/product_controller.rb:58:in `delete'
+  [1m[36mProduct Update (12.5ms)[0m  [1m[33mUPDATE "products" SET "isDeleted" = $1 WHERE "products"."id" = $2[0m  [["isDeleted", true], ["id", 3]]
+  ↳ app/controllers/product_controller.rb:58:in `delete'
+  [1m[36mTRANSACTION (7.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/product_controller.rb:58:in `delete'
+Redirected to http://127.0.0.1:3000/
+Completed 302 Found in 100ms (ActiveRecord: 68.4ms | Allocations: 5133)
+
+
+Started GET "/" for 127.0.0.1 at 2021-11-27 09:56:32 +0200
+Processing by ProductController#list as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering product/list.html.erb within layouts/application
+  [1m[36mProduct Load (0.5ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."isDeleted" = $1[0m  [["isDeleted", false]]
+  ↳ app/views/product/list.html.erb:16
+  Rendered product/list.html.erb within layouts/application (Duration: 4.3ms | Allocations: 990)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 23.6ms | Allocations: 8819)
+Completed 200 OK in 37ms (Views: 31.0ms | ActiveRecord: 0.8ms | Allocations: 9889)
+
+
+Started GET "/uploads/product_image/attachment/3/bike.jpeg" for 127.0.0.1 at 2021-11-27 09:56:32 +0200
+  
+ActionController::RoutingError (No route matches [GET] "/uploads/product_image/attachment/3/bike.jpeg"):
+  
+Started GET "/delete?id=1" for 127.0.0.1 at 2021-11-27 09:56:35 +0200
+Processing by ProductController#delete as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  [1m[36mProduct Load (2.0ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/product_controller.rb:56:in `delete'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/product_controller.rb:58:in `delete'
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/product_controller.rb:58:in `delete'
+  [1m[36mProduct Update (1.3ms)[0m  [1m[33mUPDATE "products" SET "isDeleted" = $1 WHERE "products"."id" = $2[0m  [["isDeleted", true], ["id", 1]]
+  ↳ app/controllers/product_controller.rb:58:in `delete'
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/product_controller.rb:58:in `delete'
+Redirected to http://127.0.0.1:3000/
+Completed 302 Found in 89ms (ActiveRecord: 4.5ms | Allocations: 5109)
+
+
+Started GET "/" for 127.0.0.1 at 2021-11-27 09:56:35 +0200
+Processing by ProductController#list as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering product/list.html.erb within layouts/application
+  [1m[36mProduct Load (0.8ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."isDeleted" = $1[0m  [["isDeleted", false]]
+  ↳ app/views/product/list.html.erb:16
+  Rendered product/list.html.erb within layouts/application (Duration: 3.8ms | Allocations: 726)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 18.0ms | Allocations: 8557)
+Completed 200 OK in 23ms (Views: 18.0ms | ActiveRecord: 1.0ms | Allocations: 9628)
+
+
+Started GET "/new" for 127.0.0.1 at 2021-11-27 09:56:37 +0200
+Processing by ProductController#new as HTML
+  [1m[36mUser Load (1.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering product/new.html.erb within layouts/application
+  Rendered product/new.html.erb within layouts/application (Duration: 45.9ms | Allocations: 1019)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 76.4ms | Allocations: 8938)
+Completed 200 OK in 92ms (Views: 78.7ms | ActiveRecord: 1.5ms | Allocations: 10686)
+
+
+Started POST "/product/create?method=post&multipart=true" for 127.0.0.1 at 2021-11-27 09:56:51 +0200
+Processing by ProductController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "product"=>{"name"=>"Test", "description"=>"test", "price"=>"2", "quantity"=>"1", "user_id"=>"1"}, "commit"=>"Create Product", "method"=>"post", "multipart"=>"true"}
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/product_controller.rb:23:in `create'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/product_controller.rb:23:in `create'
+  [1m[36mProduct Create (16.0ms)[0m  [1m[32mINSERT INTO "products" ("user_id", "name", "price", "description", "quantity", "created_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["user_id", 1], ["name", "Test"], ["price", 2.0], ["description", "test"], ["quantity", 1], ["created_at", "2021-11-27 07:56:51.244120"]]
+  ↳ app/controllers/product_controller.rb:23:in `create'
+  [1m[36mTRANSACTION (5.8ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/product_controller.rb:23:in `create'
+Redirected to http://127.0.0.1:3000/product_image/new
+Completed 302 Found in 48ms (ActiveRecord: 22.9ms | Allocations: 4062)
+
+
+Started GET "/product_image/new" for 127.0.0.1 at 2021-11-27 09:56:51 +0200
+Processing by ProductImageController#new as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+Completed 500 Internal Server Error in 34ms (ActiveRecord: 0.4ms | Allocations: 3945)
+
+
+  
+NameError (uninitialized constant #<Class:0x00007fcca417ea08>::AttachmentUploader):
+  
+app/models/product_image.rb:2:in `<class:ProductImage>'
+app/models/product_image.rb:1:in `<main>'
+app/controllers/product_image_controller.rb:7:in `new'
+Started GET "/product_image/new" for 127.0.0.1 at 2021-11-27 09:59:46 +0200
+Processing by ProductImageController#new as HTML
+  [1m[36mUser Load (4.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering product_image/new.html.erb within layouts/application
+  Rendered product_image/new.html.erb within layouts/application (Duration: 57.4ms | Allocations: 5809)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 91.2ms | Allocations: 13544)
+Completed 200 OK in 153ms (Views: 100.2ms | ActiveRecord: 11.3ms | Allocations: 17347)
+
+
+Started POST "/product_image/new" for 127.0.0.1 at 2021-11-27 09:59:57 +0200
+Processing by ProductImageController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "product_image"=>{"name"=>"4", "attachment"=>#<ActionDispatch::Http::UploadedFile:0x00007fcca3a1a2a8 @tempfile=#<Tempfile:/var/folders/2n/8t94p41n7g9318t5lr3m_bj40000gn/T/RackMultipart20211127-17630-159gm1u.jpeg>, @original_filename="bike.jpeg", @content_type="image/jpeg", @headers="Content-Disposition: form-data; name=\"product_image[attachment]\"; filename=\"bike.jpeg\"\r\nContent-Type: image/jpeg\r\n">}, "commit"=>"Save Image"}
+  [1m[36mUser Load (4.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  [1m[36mProduct Load (7.3ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/product_image_controller.rb:13:in `create'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/product_image_controller.rb:14:in `create'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/product_image_controller.rb:14:in `create'
+  [1m[36mProduct Update (0.5ms)[0m  [1m[33mUPDATE "products" SET "imageurl" = $1 WHERE "products"."id" = $2[0m  [["imageurl", "/uploads/product_image/attachment/4/bike.jpeg"], ["id", 4]]
+  ↳ app/controllers/product_image_controller.rb:14:in `create'
+  [1m[36mTRANSACTION (6.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/product_image_controller.rb:14:in `create'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/product_image_controller.rb:15:in `create'
+  [1m[36mProductImage Create (6.0ms)[0m  [1m[32mINSERT INTO "product_images" ("id", "name", "attachment", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["id", 4], ["name", "4"], ["attachment", "#<ActionDispatch::Http::UploadedFile:0x00007fcca3a1a2a8>"], ["created_at", "2021-11-27 07:59:57.691336"], ["updated_at", "2021-11-27 07:59:57.691336"]]
+  ↳ app/controllers/product_image_controller.rb:15:in `create'
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/product_image_controller.rb:15:in `create'
+Redirected to http://127.0.0.1:3000/?notice=Successfully+uploaded.
+Completed 302 Found in 62ms (ActiveRecord: 25.6ms | Allocations: 6609)
+
+
+Started GET "/?notice=Successfully+uploaded." for 127.0.0.1 at 2021-11-27 09:59:57 +0200
+Processing by ProductController#list as HTML
+  Parameters: {"notice"=>"Successfully uploaded."}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering product/list.html.erb within layouts/application
+  [1m[36mProduct Load (3.1ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."isDeleted" = $1[0m  [["isDeleted", false]]
+  ↳ app/views/product/list.html.erb:16
+  Rendered product/list.html.erb within layouts/application (Duration: 10.4ms | Allocations: 1003)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 41.4ms | Allocations: 8834)
+Completed 200 OK in 48ms (Views: 39.6ms | ActiveRecord: 3.4ms | Allocations: 9896)
+
+
+Started GET "/uploads/product_image/attachment/4/bike.jpeg" for 127.0.0.1 at 2021-11-27 09:59:57 +0200
+  
+ActionController::RoutingError (No route matches [GET] "/uploads/product_image/attachment/4/bike.jpeg"):
+  
+Started GET "/delete?id=4" for 127.0.0.1 at 2021-11-27 10:00:02 +0200
+Processing by ProductController#delete as HTML
+  Parameters: {"id"=>"4"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  [1m[36mProduct Load (2.4ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/product_controller.rb:56:in `delete'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/product_controller.rb:58:in `delete'
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/product_controller.rb:58:in `delete'
+  [1m[36mProduct Update (0.6ms)[0m  [1m[33mUPDATE "products" SET "isDeleted" = $1 WHERE "products"."id" = $2[0m  [["isDeleted", true], ["id", 4]]
+  ↳ app/controllers/product_controller.rb:58:in `delete'
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/product_controller.rb:58:in `delete'
+Redirected to http://127.0.0.1:3000/
+Completed 302 Found in 168ms (ActiveRecord: 4.4ms | Allocations: 5108)
+
+
+Started GET "/" for 127.0.0.1 at 2021-11-27 10:00:02 +0200
+Processing by ProductController#list as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering product/list.html.erb within layouts/application
+  [1m[36mProduct Load (0.9ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."isDeleted" = $1[0m  [["isDeleted", false]]
+  ↳ app/views/product/list.html.erb:16
+  Rendered product/list.html.erb within layouts/application (Duration: 5.2ms | Allocations: 726)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 28.7ms | Allocations: 8568)
+Completed 200 OK in 35ms (Views: 28.7ms | ActiveRecord: 1.2ms | Allocations: 9637)
+
+
+Started GET "/uploads/product_image/attachment/4/bike.jpeg" for 127.0.0.1 at 2021-11-27 10:00:02 +0200
+  
+ActionController::RoutingError (No route matches [GET] "/uploads/product_image/attachment/4/bike.jpeg"):
+  
+Started GET "/new" for 127.0.0.1 at 2021-11-27 10:00:06 +0200
+Processing by ProductController#new as HTML
+  [1m[36mUser Load (3.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering product/new.html.erb within layouts/application
+  Rendered product/new.html.erb within layouts/application (Duration: 2.4ms | Allocations: 471)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 26.2ms | Allocations: 8300)
+Completed 200 OK in 81ms (Views: 27.7ms | ActiveRecord: 3.2ms | Allocations: 9979)
+
+
+Started POST "/product/create?method=post&multipart=true" for 127.0.0.1 at 2021-11-27 10:00:18 +0200
+Processing by ProductController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "product"=>{"name"=>"Test", "description"=>"tes", "price"=>"33.2", "quantity"=>"2", "user_id"=>"1"}, "commit"=>"Create Product", "method"=>"post", "multipart"=>"true"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/product_controller.rb:23:in `create'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/product_controller.rb:23:in `create'
+  [1m[36mProduct Create (6.8ms)[0m  [1m[32mINSERT INTO "products" ("user_id", "name", "price", "description", "quantity", "created_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["user_id", 1], ["name", "Test"], ["price", 33.2], ["description", "tes"], ["quantity", 2], ["created_at", "2021-11-27 08:00:18.038160"]]
+  ↳ app/controllers/product_controller.rb:23:in `create'
+  [1m[36mTRANSACTION (2.7ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/product_controller.rb:23:in `create'
+Redirected to http://127.0.0.1:3000/product_image/new
+Completed 302 Found in 29ms (ActiveRecord: 10.0ms | Allocations: 3996)
+
+
+Started GET "/product_image/new" for 127.0.0.1 at 2021-11-27 10:00:18 +0200
+Processing by ProductImageController#new as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering product_image/new.html.erb within layouts/application
+  Rendered product_image/new.html.erb within layouts/application (Duration: 2.3ms | Allocations: 641)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 16.5ms | Allocations: 8469)
+Completed 200 OK in 21ms (Views: 17.1ms | ActiveRecord: 0.4ms | Allocations: 9468)
+
+
+Started POST "/product_image/new" for 127.0.0.1 at 2021-11-27 10:00:25 +0200
+Processing by ProductImageController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "product_image"=>{"name"=>"5", "attachment"=>#<ActionDispatch::Http::UploadedFile:0x00007fcca42558a0 @tempfile=#<Tempfile:/var/folders/2n/8t94p41n7g9318t5lr3m_bj40000gn/T/RackMultipart20211127-17630-r30so9.jpeg>, @original_filename="bike.jpeg", @content_type="image/jpeg", @headers="Content-Disposition: form-data; name=\"product_image[attachment]\"; filename=\"bike.jpeg\"\r\nContent-Type: image/jpeg\r\n">}, "commit"=>"Save Image"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  [1m[36mProduct Load (0.9ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/product_image_controller.rb:13:in `create'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/product_image_controller.rb:14:in `create'
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/product_image_controller.rb:14:in `create'
+  [1m[36mProduct Update (2.3ms)[0m  [1m[33mUPDATE "products" SET "imageurl" = $1 WHERE "products"."id" = $2[0m  [["imageurl", "/uploads/product_image/attachment/5/bike.jpeg"], ["id", 5]]
+  ↳ app/controllers/product_image_controller.rb:14:in `create'
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/product_image_controller.rb:14:in `create'
+  [1m[36mTRANSACTION (2.6ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/product_image_controller.rb:15:in `create'
+  [1m[36mProductImage Create (0.4ms)[0m  [1m[32mINSERT INTO "product_images" ("id", "name", "attachment", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["id", 5], ["name", "5"], ["attachment", "#<ActionDispatch::Http::UploadedFile:0x00007fcca42558a0>"], ["created_at", "2021-11-27 08:00:25.706112"], ["updated_at", "2021-11-27 08:00:25.706112"]]
+  ↳ app/controllers/product_image_controller.rb:15:in `create'
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/product_image_controller.rb:15:in `create'
+Redirected to http://127.0.0.1:3000/?notice=Successfully+uploaded.
+Completed 302 Found in 43ms (ActiveRecord: 8.1ms | Allocations: 6576)
+
+
+Started GET "/?notice=Successfully+uploaded." for 127.0.0.1 at 2021-11-27 10:00:25 +0200
+Processing by ProductController#list as HTML
+  Parameters: {"notice"=>"Successfully uploaded."}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering product/list.html.erb within layouts/application
+  [1m[36mProduct Load (0.6ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."isDeleted" = $1[0m  [["isDeleted", false]]
+  ↳ app/views/product/list.html.erb:16
+  Rendered product/list.html.erb within layouts/application (Duration: 5.5ms | Allocations: 994)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 22.2ms | Allocations: 8822)
+Completed 200 OK in 30ms (Views: 23.7ms | ActiveRecord: 0.9ms | Allocations: 9882)
+
+
+Started GET "/uploads/product_image/attachment/5/bike.jpeg" for 127.0.0.1 at 2021-11-27 10:00:25 +0200
+  
+ActionController::RoutingError (No route matches [GET] "/uploads/product_image/attachment/5/bike.jpeg"):
+  
+Started GET "/show?id=5" for 127.0.0.1 at 2021-11-27 10:01:08 +0200
+  [1m[35m (1.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by ProductController#show as HTML
+  Parameters: {"id"=>"5"}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  [1m[36mProduct Load (0.5ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/product_controller.rb:13:in `show'
+  Rendering layout layouts/application.html.erb
+  Rendering product/show.html.erb within layouts/application
+  Rendered product/show.html.erb within layouts/application (Duration: 20.5ms | Allocations: 2293)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 208.2ms | Allocations: 20348)
+Completed 200 OK in 296ms (Views: 217.0ms | ActiveRecord: 11.6ms | Allocations: 35904)
+
+
+Started GET "/uploads/product_image/attachment/5/bike.jpeg" for 127.0.0.1 at 2021-11-27 10:01:09 +0200
+  
+ActionController::RoutingError (No route matches [GET] "/uploads/product_image/attachment/5/bike.jpeg"):
+  
+Started POST "/product/update?id=5" for 127.0.0.1 at 2021-11-27 10:01:26 +0200
+Processing by ProductController#update as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "product"=>{"name"=>"Test", "description"=>"tes", "price"=>"33.2", "quantity"=>"0", "user_id"=>"1", "id"=>"5"}, "commit"=>"Save Changes", "id"=>"5"}
+  [1m[36mUser Load (20.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  [1m[36mProduct Load (0.6ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/product_controller.rb:44:in `update'
+[31mUnpermitted parameter: :id[0m
+  [1m[36mCACHE User Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/product_controller.rb:46:in `update'
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/product_controller.rb:46:in `update'
+  [1m[36mProduct Update (1.3ms)[0m  [1m[33mUPDATE "products" SET "quantity" = $1 WHERE "products"."id" = $2[0m  [["quantity", 0], ["id", 5]]
+  ↳ app/controllers/product_controller.rb:46:in `update'
+  [1m[36mTRANSACTION (4.8ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/product_controller.rb:46:in `update'
+Redirected to http://127.0.0.1:3000/?id=5
+Completed 302 Found in 355ms (ActiveRecord: 28.0ms | Allocations: 9734)
+
+
+Started GET "/?id=5" for 127.0.0.1 at 2021-11-27 10:01:26 +0200
+Processing by ProductController#list as HTML
+  Parameters: {"id"=>"5"}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering product/list.html.erb within layouts/application
+  [1m[36mProduct Load (0.5ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."isDeleted" = $1[0m  [["isDeleted", false]]
+  ↳ app/views/product/list.html.erb:16
+  Rendered product/list.html.erb within layouts/application (Duration: 11.1ms | Allocations: 1977)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 41.5ms | Allocations: 9931)
+Completed 200 OK in 51ms (Views: 43.3ms | ActiveRecord: 1.0ms | Allocations: 11230)
+
+
+Started GET "/uploads/product_image/attachment/5/bike.jpeg" for 127.0.0.1 at 2021-11-27 10:01:27 +0200
+  
+ActionController::RoutingError (No route matches [GET] "/uploads/product_image/attachment/5/bike.jpeg"):
+  
+Started GET "/?id=5" for 127.0.0.1 at 2021-11-27 10:05:08 +0200
+  [1m[35m (7.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by ProductController#list as HTML
+  Parameters: {"id"=>"5"}
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering product/list.html.erb within layouts/application
+  [1m[36mProduct Load (0.6ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."isDeleted" = $1[0m  [["isDeleted", false]]
+  ↳ app/views/product/list.html.erb:16
+  Rendered product/list.html.erb within layouts/application (Duration: 30.8ms | Allocations: 7176)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 213.6ms | Allocations: 25236)
+Completed 200 OK in 278ms (Views: 219.3ms | ActiveRecord: 10.9ms | Allocations: 36027)
+
+
+Started GET "/uploads/product_image/attachment/5/bike.jpeg" for 127.0.0.1 at 2021-11-27 10:05:09 +0200
+  
+ActionController::RoutingError (No route matches [GET] "/uploads/product_image/attachment/5/bike.jpeg"):
+  
+Started GET "/show?id=5" for 127.0.0.1 at 2021-11-27 10:05:22 +0200
+Processing by ProductController#show as HTML
+  Parameters: {"id"=>"5"}
+  [1m[36mUser Load (3.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  [1m[36mProduct Load (0.5ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/product_controller.rb:13:in `show'
+  Rendering layout layouts/application.html.erb
+  Rendering product/show.html.erb within layouts/application
+  Rendered product/show.html.erb within layouts/application (Duration: 10.5ms | Allocations: 1232)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 39.9ms | Allocations: 9200)
+Completed 200 OK in 223ms (Views: 42.2ms | ActiveRecord: 4.3ms | Allocations: 11826)
+
+
+Started GET "/uploads/product_image/attachment/5/bike.jpeg" for 127.0.0.1 at 2021-11-27 10:05:22 +0200
+  
+ActionController::RoutingError (No route matches [GET] "/uploads/product_image/attachment/5/bike.jpeg"):
+  
+Started POST "/product/update?id=5" for 127.0.0.1 at 2021-11-27 10:05:27 +0200
+Processing by ProductController#update as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "product"=>{"name"=>"Test", "description"=>"tessdafdgfhgjsgwqretyukt", "price"=>"33.2", "quantity"=>"0", "user_id"=>"1", "id"=>"5"}, "commit"=>"Save Changes", "id"=>"5"}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  [1m[36mProduct Load (0.5ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/product_controller.rb:44:in `update'
+[31mUnpermitted parameter: :id[0m
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/product_controller.rb:46:in `update'
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/product_controller.rb:46:in `update'
+  [1m[36mProduct Update (7.4ms)[0m  [1m[33mUPDATE "products" SET "description" = $1 WHERE "products"."id" = $2[0m  [["description", "tessdafdgfhgjsgwqretyukt"], ["id", 5]]
+  ↳ app/controllers/product_controller.rb:46:in `update'
+  [1m[36mTRANSACTION (3.9ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/product_controller.rb:46:in `update'
+Redirected to http://127.0.0.1:3000/?id=5
+Completed 302 Found in 58ms (ActiveRecord: 12.8ms | Allocations: 6843)
+
+
+Started GET "/?id=5" for 127.0.0.1 at 2021-11-27 10:05:28 +0200
+Processing by ProductController#list as HTML
+  Parameters: {"id"=>"5"}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering product/list.html.erb within layouts/application
+  [1m[36mProduct Load (0.5ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."isDeleted" = $1[0m  [["isDeleted", false]]
+  ↳ app/views/product/list.html.erb:16
+  Rendered product/list.html.erb within layouts/application (Duration: 3.9ms | Allocations: 999)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 19.8ms | Allocations: 8830)
+Completed 200 OK in 27ms (Views: 20.1ms | ActiveRecord: 1.0ms | Allocations: 9898)
+
+
+Started GET "/uploads/product_image/attachment/5/bike.jpeg" for 127.0.0.1 at 2021-11-27 10:05:28 +0200
+  
+ActionController::RoutingError (No route matches [GET] "/uploads/product_image/attachment/5/bike.jpeg"):
+  
+Started GET "/delete?id=5" for 127.0.0.1 at 2021-11-27 10:05:39 +0200
+Processing by ProductController#delete as HTML
+  Parameters: {"id"=>"5"}
+  [1m[36mUser Load (2.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  [1m[36mProduct Load (0.6ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/product_controller.rb:56:in `delete'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/product_controller.rb:58:in `delete'
+  [1m[36mTRANSACTION (2.6ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/product_controller.rb:58:in `delete'
+  [1m[36mProduct Update (15.0ms)[0m  [1m[33mUPDATE "products" SET "isDeleted" = $1 WHERE "products"."id" = $2[0m  [["isDeleted", true], ["id", 5]]
+  ↳ app/controllers/product_controller.rb:58:in `delete'
+  [1m[36mTRANSACTION (6.0ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/product_controller.rb:58:in `delete'
+Redirected to http://127.0.0.1:3000/
+Completed 302 Found in 85ms (ActiveRecord: 26.3ms | Allocations: 5111)
+
+
+Started GET "/" for 127.0.0.1 at 2021-11-27 10:05:39 +0200
+Processing by ProductController#list as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering product/list.html.erb within layouts/application
+  [1m[36mProduct Load (0.5ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."isDeleted" = $1[0m  [["isDeleted", false]]
+  ↳ app/views/product/list.html.erb:16
+  Rendered product/list.html.erb within layouts/application (Duration: 3.6ms | Allocations: 726)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 16.9ms | Allocations: 8556)
+Completed 200 OK in 24ms (Views: 17.8ms | ActiveRecord: 0.9ms | Allocations: 9625)
+
+
+Started GET "/uploads/product_image/attachment/5/bike.jpeg" for 127.0.0.1 at 2021-11-27 10:05:39 +0200
+  
+ActionController::RoutingError (No route matches [GET] "/uploads/product_image/attachment/5/bike.jpeg"):
+  
+Started GET "/new" for 127.0.0.1 at 2021-11-27 10:05:41 +0200
+Processing by ProductController#new as HTML
+  [1m[36mUser Load (11.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering product/new.html.erb within layouts/application
+  Rendered product/new.html.erb within layouts/application (Duration: 3.6ms | Allocations: 829)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 19.4ms | Allocations: 8662)
+Completed 200 OK in 49ms (Views: 20.3ms | ActiveRecord: 11.1ms | Allocations: 10500)
+
+
+Started POST "/product/create?method=post&multipart=true" for 127.0.0.1 at 2021-11-27 10:05:55 +0200
+Processing by ProductController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "product"=>{"name"=>"Tanganda", "description"=>"tes", "price"=>"1", "quantity"=>"1", "user_id"=>"1"}, "commit"=>"Create Product", "method"=>"post", "multipart"=>"true"}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/product_controller.rb:23:in `create'
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/product_controller.rb:23:in `create'
+  [1m[36mProduct Create (22.1ms)[0m  [1m[32mINSERT INTO "products" ("user_id", "name", "price", "description", "quantity", "created_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["user_id", 1], ["name", "Tanganda"], ["price", 1.0], ["description", "tes"], ["quantity", 1], ["created_at", "2021-11-27 08:05:55.488532"]]
+  ↳ app/controllers/product_controller.rb:23:in `create'
+  [1m[36mTRANSACTION (1.7ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/product_controller.rb:23:in `create'
+Redirected to http://127.0.0.1:3000/product_image/new
+Completed 302 Found in 69ms (ActiveRecord: 24.8ms | Allocations: 4061)
+
+
+Started GET "/product_image/new" for 127.0.0.1 at 2021-11-27 10:05:55 +0200
+Processing by ProductImageController#new as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering product_image/new.html.erb within layouts/application
+  Rendered product_image/new.html.erb within layouts/application (Duration: 23.2ms | Allocations: 2988)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 49.5ms | Allocations: 10782)
+Completed 200 OK in 197ms (Views: 73.5ms | ActiveRecord: 97.2ms | Allocations: 16289)
+
+
+Started POST "/product_image/new" for 127.0.0.1 at 2021-11-27 10:06:08 +0200
+Processing by ProductImageController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "product_image"=>{"name"=>"6", "attachment"=>#<ActionDispatch::Http::UploadedFile:0x00007fe57b073920 @tempfile=#<Tempfile:/var/folders/2n/8t94p41n7g9318t5lr3m_bj40000gn/T/RackMultipart20211127-17878-h1ug9z.jpeg>, @original_filename="bike.jpeg", @content_type="image/jpeg", @headers="Content-Disposition: form-data; name=\"product_image[attachment]\"; filename=\"bike.jpeg\"\r\nContent-Type: image/jpeg\r\n">}, "commit"=>"Save Image"}
+  [1m[36mUser Load (3.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  [1m[36mProduct Load (1.0ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  ↳ app/controllers/product_image_controller.rb:13:in `create'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/product_image_controller.rb:14:in `create'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/product_image_controller.rb:14:in `create'
+  [1m[36mProduct Update (6.3ms)[0m  [1m[33mUPDATE "products" SET "imageurl" = $1 WHERE "products"."id" = $2[0m  [["imageurl", "/uploads/product_image/attachment/6/bike.jpeg"], ["id", 6]]
+  ↳ app/controllers/product_image_controller.rb:14:in `create'
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/product_image_controller.rb:14:in `create'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/product_image_controller.rb:15:in `create'
+  [1m[36mProductImage Create (0.8ms)[0m  [1m[32mINSERT INTO "product_images" ("id", "name", "attachment", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["id", 6], ["name", "6"], ["attachment", "bike.jpeg"], ["created_at", "2021-11-27 08:06:08.958880"], ["updated_at", "2021-11-27 08:06:08.958880"]]
+  ↳ app/controllers/product_image_controller.rb:15:in `create'
+  [1m[36mTRANSACTION (3.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/product_image_controller.rb:15:in `create'
+Redirected to http://127.0.0.1:3000/?notice=Successfully+uploaded.
+Completed 302 Found in 64ms (ActiveRecord: 15.9ms | Allocations: 7720)
+
+
+Started GET "/?notice=Successfully+uploaded." for 127.0.0.1 at 2021-11-27 10:06:08 +0200
+Processing by ProductController#list as HTML
+  Parameters: {"notice"=>"Successfully uploaded."}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering product/list.html.erb within layouts/application
+  [1m[36mProduct Load (0.6ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."isDeleted" = $1[0m  [["isDeleted", false]]
+  ↳ app/views/product/list.html.erb:16
+  Rendered product/list.html.erb within layouts/application (Duration: 5.5ms | Allocations: 1003)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 43.1ms | Allocations: 8834)
+Completed 200 OK in 51ms (Views: 44.8ms | ActiveRecord: 0.8ms | Allocations: 9895)
+
+
+Started GET "/authentication/dashboard" for 127.0.0.1 at 2021-11-27 10:07:05 +0200
+Processing by AuthenticationController#dashboard as HTML
+  [1m[36mUser Load (2.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  [1m[36mSale Load (1.9ms)[0m  [1m[34mSELECT "sales".* FROM "sales"[0m
+  ↳ app/controllers/authentication_controller.rb:34:in `dashboard'
+  [1m[36mProduct Load (1.2ms)[0m  [1m[34mSELECT "products".* FROM "products"[0m
+  ↳ app/controllers/authentication_controller.rb:40:in `dashboard'
+  Rendering layout layouts/application.html.erb
+  Rendering authentication/dashboard.html.erb within layouts/application
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/views/authentication/dashboard.html.erb:49
+  Rendered authentication/dashboard.html.erb within layouts/application (Duration: 9.0ms | Allocations: 1258)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 33.2ms | Allocations: 9040)
+Completed 200 OK in 84ms (Views: 42.8ms | ActiveRecord: 10.2ms | Allocations: 12708)
+
+
+Started GET "/" for ::1 at 2021-11-27 10:07:14 +0200
+Processing by ProductController#list as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering product/list.html.erb within layouts/application
+  [1m[36mProduct Load (0.4ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."isDeleted" = $1[0m  [["isDeleted", false]]
+  ↳ app/views/product/list.html.erb:16
+  Rendered product/list.html.erb within layouts/application (Duration: 31.2ms | Allocations: 936)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 289.5ms | Allocations: 8769)
+Completed 200 OK in 293ms (Views: 290.5ms | ActiveRecord: 0.4ms | Allocations: 9238)
+
+
+Started GET "/" for ::1 at 2021-11-27 10:07:23 +0200
+Processing by ProductController#list as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering product/list.html.erb within layouts/application
+  [1m[36mProduct Load (0.7ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."isDeleted" = $1[0m  [["isDeleted", false]]
+  ↳ app/views/product/list.html.erb:16
+  Rendered product/list.html.erb within layouts/application (Duration: 6.0ms | Allocations: 918)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 21.8ms | Allocations: 8746)
+Completed 200 OK in 24ms (Views: 22.4ms | ActiveRecord: 0.7ms | Allocations: 9207)
+
+
+Started GET "/authentication/dashboard" for 127.0.0.1 at 2021-11-27 10:07:25 +0200
+Processing by AuthenticationController#dashboard as HTML
+  [1m[36mUser Load (3.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  [1m[36mSale Load (1.0ms)[0m  [1m[34mSELECT "sales".* FROM "sales"[0m
+  ↳ app/controllers/authentication_controller.rb:34:in `dashboard'
+  [1m[36mProduct Load (0.7ms)[0m  [1m[34mSELECT "products".* FROM "products"[0m
+  ↳ app/controllers/authentication_controller.rb:40:in `dashboard'
+  Rendering layout layouts/application.html.erb
+  Rendering authentication/dashboard.html.erb within layouts/application
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/views/authentication/dashboard.html.erb:49
+  Rendered authentication/dashboard.html.erb within layouts/application (Duration: 2.7ms | Allocations: 718)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 20.8ms | Allocations: 8533)
+Completed 200 OK in 44ms (Views: 21.3ms | ActiveRecord: 5.7ms | Allocations: 10763)
+
+
+Started GET "/product/list" for 127.0.0.1 at 2021-11-27 10:07:29 +0200
+Processing by ProductController#list as HTML
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering product/list.html.erb within layouts/application
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."isDeleted" = $1[0m  [["isDeleted", false]]
+  ↳ app/views/product/list.html.erb:16
+  Rendered product/list.html.erb within layouts/application (Duration: 3.9ms | Allocations: 995)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 18.6ms | Allocations: 8823)
+Completed 200 OK in 76ms (Views: 19.2ms | ActiveRecord: 1.3ms | Allocations: 10561)
+
+
+Started GET "/authentication/dashboard" for 127.0.0.1 at 2021-11-27 10:07:38 +0200
+Processing by AuthenticationController#dashboard as HTML
+  [1m[36mUser Load (1.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  [1m[36mSale Load (1.3ms)[0m  [1m[34mSELECT "sales".* FROM "sales"[0m
+  ↳ app/controllers/authentication_controller.rb:34:in `dashboard'
+  [1m[36mProduct Load (0.8ms)[0m  [1m[34mSELECT "products".* FROM "products"[0m
+  ↳ app/controllers/authentication_controller.rb:40:in `dashboard'
+  Rendering layout layouts/application.html.erb
+  Rendering authentication/dashboard.html.erb within layouts/application
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/views/authentication/dashboard.html.erb:49
+  Rendered authentication/dashboard.html.erb within layouts/application (Duration: 4.6ms | Allocations: 718)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 31.7ms | Allocations: 8533)
+Completed 200 OK in 184ms (Views: 34.1ms | ActiveRecord: 4.0ms | Allocations: 12809)
+
+
+Started GET "/" for ::1 at 2021-11-27 10:07:46 +0200
+Processing by ProductController#list as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering product/list.html.erb within layouts/application
+  [1m[36mProduct Load (0.3ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."isDeleted" = $1[0m  [["isDeleted", false]]
+  ↳ app/views/product/list.html.erb:16
+  Rendered product/list.html.erb within layouts/application (Duration: 5.7ms | Allocations: 918)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 26.3ms | Allocations: 8746)
+Completed 200 OK in 31ms (Views: 27.8ms | ActiveRecord: 0.3ms | Allocations: 9209)
+
+
+Started GET "/" for ::1 at 2021-11-27 10:07:49 +0200
+Processing by ProductController#list as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering product/list.html.erb within layouts/application
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."isDeleted" = $1[0m  [["isDeleted", false]]
+  ↳ app/views/product/list.html.erb:16
+  Rendered product/list.html.erb within layouts/application (Duration: 6.0ms | Allocations: 918)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 23.3ms | Allocations: 8746)
+Completed 200 OK in 25ms (Views: 23.7ms | ActiveRecord: 0.2ms | Allocations: 9207)
+
+
+Started GET "/" for ::1 at 2021-11-27 10:07:50 +0200
+Processing by ProductController#list as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering product/list.html.erb within layouts/application
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."isDeleted" = $1[0m  [["isDeleted", false]]
+  ↳ app/views/product/list.html.erb:16
+  Rendered product/list.html.erb within layouts/application (Duration: 5.8ms | Allocations: 918)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 23.2ms | Allocations: 8746)
+Completed 200 OK in 25ms (Views: 23.9ms | ActiveRecord: 0.2ms | Allocations: 9207)
+
+
+Started POST "/sale/cart" for ::1 at 2021-11-27 10:08:06 +0200
+Processing by SaleController#cart as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "cart"=>{"product_id"=>"6", "name"=>"Tanganda", "price"=>"1.0", "date"=>"27/11/2021", "quantity"=>"1"}}
+Redirected to http://localhost:3000/
+Completed 302 Found in 3ms (ActiveRecord: 0.0ms | Allocations: 417)
+
+
+Started GET "/" for ::1 at 2021-11-27 10:08:06 +0200
+Processing by ProductController#list as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering product/list.html.erb within layouts/application
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."isDeleted" = $1[0m  [["isDeleted", false]]
+  ↳ app/views/product/list.html.erb:16
+  Rendered product/list.html.erb within layouts/application (Duration: 3.7ms | Allocations: 927)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 25.2ms | Allocations: 8756)
+Completed 200 OK in 29ms (Views: 25.8ms | ActiveRecord: 0.2ms | Allocations: 9233)
+
+
+Started GET "/" for ::1 at 2021-11-27 10:13:39 +0200
+  [1m[35m (1.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by ProductController#list as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering product/list.html.erb within layouts/application
+  [1m[36mProduct Load (0.9ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."isDeleted" = $1[0m  [["isDeleted", false]]
+  ↳ app/views/product/list.html.erb:16
+  Rendered product/list.html.erb within layouts/application (Duration: 28.5ms | Allocations: 7622)
+[Webpacker] Compiling...
+[Webpacker] Compiled all packs in /Users/redgeraldnyamadzavo/Desktop/RubyOnRails/postgress/myapp/public/packs
+[Webpacker] Hash: e2a8a876c5815bee1e21
+Version: webpack 4.46.0
+Time: 1552ms
+Built at: 27/11/2021 10:13:46
+                                     Asset       Size       Chunks                         Chunk Names
+    js/application-e421b4aa3f716bebdab1.js    125 KiB  application  [emitted] [immutable]  application
+js/application-e421b4aa3f716bebdab1.js.map    139 KiB  application  [emitted] [dev]        application
+                             manifest.json  364 bytes               [emitted]              
+Entrypoint application = js/application-e421b4aa3f716bebdab1.js js/application-e421b4aa3f716bebdab1.js.map
+[./app/javascript/channels sync recursive _channel\.js$] ./app/javascript/channels sync _channel\.js$ 160 bytes {application} [built]
+[./app/javascript/channels/index.js] 211 bytes {application} [built]
+[./app/javascript/packs/application.js] 492 bytes {application} [built]
+[./node_modules/webpack/buildin/module.js] (webpack)/buildin/module.js 552 bytes {application} [built]
+    + 3 hidden modules
+
+  Rendered layout layouts/application.html.erb (Duration: 5542.8ms | Allocations: 26900)
+Completed 200 OK in 5588ms (Views: 5545.6ms | ActiveRecord: 7.2ms | Allocations: 32053)
+
+
+Started GET "/" for ::1 at 2021-11-27 10:15:54 +0200
+  [1m[35m (7.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by ProductController#list as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering product/list.html.erb within layouts/application
+  [1m[36mProduct Load (0.8ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."isDeleted" = $1[0m  [["isDeleted", false]]
+  ↳ app/views/product/list.html.erb:16
+  Rendered product/list.html.erb within layouts/application (Duration: 28.3ms | Allocations: 7622)
+[Webpacker] Compiling...
+[Webpacker] Compiled all packs in /Users/redgeraldnyamadzavo/Desktop/RubyOnRails/postgress/myapp/public/packs
+[Webpacker] Hash: e2a8a876c5815bee1e21
+Version: webpack 4.46.0
+Time: 1767ms
+Built at: 27/11/2021 10:16:01
+                                     Asset       Size       Chunks                         Chunk Names
+    js/application-e421b4aa3f716bebdab1.js    125 KiB  application  [emitted] [immutable]  application
+js/application-e421b4aa3f716bebdab1.js.map    139 KiB  application  [emitted] [dev]        application
+                             manifest.json  364 bytes               [emitted]              
+Entrypoint application = js/application-e421b4aa3f716bebdab1.js js/application-e421b4aa3f716bebdab1.js.map
+[./app/javascript/channels sync recursive _channel\.js$] ./app/javascript/channels sync _channel\.js$ 160 bytes {application} [built]
+[./app/javascript/channels/index.js] 211 bytes {application} [built]
+[./app/javascript/packs/application.js] 492 bytes {application} [built]
+[./node_modules/webpack/buildin/module.js] (webpack)/buildin/module.js 552 bytes {application} [built]
+    + 3 hidden modules
+
+  Rendered layout layouts/application.html.erb (Duration: 6510.7ms | Allocations: 26901)
+Completed 200 OK in 6573ms (Views: 6514.8ms | ActiveRecord: 8.2ms | Allocations: 32054)
+
+
+Started GET "/" for 127.0.0.1 at 2021-11-27 10:17:38 +0200
+  [1m[35m (1.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by ProductController#list as HTML
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering product/list.html.erb within layouts/application
+  [1m[36mProduct Load (0.6ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."isDeleted" = $1[0m  [["isDeleted", false]]
+  ↳ app/views/product/list.html.erb:16
+  Rendered product/list.html.erb within layouts/application (Duration: 26.6ms | Allocations: 7178)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 186.9ms | Allocations: 25222)
+Completed 200 OK in 260ms (Views: 191.4ms | ActiveRecord: 11.4ms | Allocations: 36013)
+
+
+Started GET "/" for 127.0.0.1 at 2021-11-27 10:24:49 +0200
+  [1m[35m (1.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by ProductController#list as HTML
+  [1m[36mUser Load (8.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering product/list.html.erb within layouts/application
+  [1m[36mProduct Load (1.0ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."isDeleted" = $1[0m  [["isDeleted", false]]
+  ↳ app/views/product/list.html.erb:16
+  Rendered product/list.html.erb within layouts/application (Duration: 40.4ms | Allocations: 7178)
+[Webpacker] Compiling...
+[Webpacker] Compiled all packs in /Users/redgeraldnyamadzavo/Desktop/RubyOnRails/postgress/myapp/public/packs
+[Webpacker] Hash: e2a8a876c5815bee1e21
+Version: webpack 4.46.0
+Time: 1361ms
+Built at: 27/11/2021 10:24:54
+                                     Asset       Size       Chunks                         Chunk Names
+    js/application-e421b4aa3f716bebdab1.js    125 KiB  application  [emitted] [immutable]  application
+js/application-e421b4aa3f716bebdab1.js.map    139 KiB  application  [emitted] [dev]        application
+                             manifest.json  364 bytes               [emitted]              
+Entrypoint application = js/application-e421b4aa3f716bebdab1.js js/application-e421b4aa3f716bebdab1.js.map
+[./app/javascript/channels sync recursive _channel\.js$] ./app/javascript/channels sync _channel\.js$ 160 bytes {application} [built]
+[./app/javascript/channels/index.js] 211 bytes {application} [built]
+[./app/javascript/packs/application.js] 492 bytes {application} [built]
+[./node_modules/webpack/buildin/module.js] (webpack)/buildin/module.js 552 bytes {application} [built]
+    + 3 hidden modules
+
+  Rendered layout layouts/application.html.erb (Duration: 4980.4ms | Allocations: 26451)
+Completed 200 OK in 5063ms (Views: 4984.7ms | ActiveRecord: 22.7ms | Allocations: 37242)
+
+
+Started GET "/" for 127.0.0.1 at 2021-11-27 10:25:24 +0200
+Processing by ProductController#list as HTML
+  [1m[36mUser Load (1.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering product/list.html.erb within layouts/application
+  [1m[36mProduct Load (0.7ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."isDeleted" = $1[0m  [["isDeleted", false]]
+  ↳ app/views/product/list.html.erb:16
+  Rendered product/list.html.erb within layouts/application (Duration: 8.2ms | Allocations: 1003)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 41.9ms | Allocations: 8822)
+Completed 200 OK in 59ms (Views: 42.8ms | ActiveRecord: 2.2ms | Allocations: 9908)
+
+
+Started GET "/" for 127.0.0.1 at 2021-11-27 10:26:24 +0200
+  [1m[35m (8.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by ProductController#list as HTML
+  [1m[36mUser Load (1.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering product/list.html.erb within layouts/application
+  [1m[36mProduct Load (0.7ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."isDeleted" = $1[0m  [["isDeleted", false]]
+  ↳ app/views/product/list.html.erb:16
+  Rendered product/list.html.erb within layouts/application (Duration: 22.0ms | Allocations: 7178)
+[Webpacker] Compiling...
+[Webpacker] Compiled all packs in /Users/redgeraldnyamadzavo/Desktop/RubyOnRails/postgress/myapp/public/packs
+[Webpacker] Hash: e2a8a876c5815bee1e21
+Version: webpack 4.46.0
+Time: 1421ms
+Built at: 27/11/2021 10:26:30
+                                     Asset       Size       Chunks                         Chunk Names
+    js/application-e421b4aa3f716bebdab1.js    125 KiB  application  [emitted] [immutable]  application
+js/application-e421b4aa3f716bebdab1.js.map    139 KiB  application  [emitted] [dev]        application
+                             manifest.json  364 bytes               [emitted]              
+Entrypoint application = js/application-e421b4aa3f716bebdab1.js js/application-e421b4aa3f716bebdab1.js.map
+[./app/javascript/channels sync recursive _channel\.js$] ./app/javascript/channels sync _channel\.js$ 160 bytes {application} [built]
+[./app/javascript/channels/index.js] 211 bytes {application} [built]
+[./app/javascript/packs/application.js] 492 bytes {application} [built]
+[./node_modules/webpack/buildin/module.js] (webpack)/buildin/module.js 552 bytes {application} [built]
+    + 3 hidden modules
+
+  Rendered layout layouts/application.html.erb (Duration: 5289.1ms | Allocations: 26455)
+Completed 200 OK in 5361ms (Views: 5295.1ms | ActiveRecord: 17.1ms | Allocations: 37246)
+
+
+Started GET "/" for 127.0.0.1 at 2021-11-27 10:26:49 +0200
+Processing by ProductController#list as HTML
+  [1m[36mUser Load (1.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering product/list.html.erb within layouts/application
+  [1m[36mProduct Load (0.8ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."isDeleted" = $1[0m  [["isDeleted", false]]
+  ↳ app/views/product/list.html.erb:16
+  Rendered product/list.html.erb within layouts/application (Duration: 10.6ms | Allocations: 1001)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 48.3ms | Allocations: 8818)
+Completed 200 OK in 73ms (Views: 49.0ms | ActiveRecord: 2.5ms | Allocations: 9880)
+
+
+Started GET "/" for 127.0.0.1 at 2021-11-27 10:26:50 +0200
+Processing by ProductController#list as HTML
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering product/list.html.erb within layouts/application
+  [1m[36mProduct Load (0.3ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."isDeleted" = $1[0m  [["isDeleted", false]]
+  ↳ app/views/product/list.html.erb:16
+  Rendered product/list.html.erb within layouts/application (Duration: 4.5ms | Allocations: 996)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 75.2ms | Allocations: 8815)
+Completed 200 OK in 82ms (Views: 75.8ms | ActiveRecord: 1.0ms | Allocations: 9897)
+
+
+Started GET "/" for 127.0.0.1 at 2021-11-27 10:27:04 +0200
+Processing by ProductController#list as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering product/list.html.erb within layouts/application
+  [1m[36mProduct Load (1.5ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."isDeleted" = $1[0m  [["isDeleted", false]]
+  ↳ app/views/product/list.html.erb:16
+  Rendered product/list.html.erb within layouts/application (Duration: 213.4ms | Allocations: 937)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 507.9ms | Allocations: 8756)
+Completed 200 OK in 547ms (Views: 535.9ms | ActiveRecord: 1.5ms | Allocations: 9181)
+
+
+Started GET "/" for 127.0.0.1 at 2021-11-27 10:28:07 +0200
+  [1m[35m (1.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by ProductController#list as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering product/list.html.erb within layouts/application
+  [1m[36mProduct Load (5.4ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."isDeleted" = $1[0m  [["isDeleted", false]]
+  ↳ app/views/product/list.html.erb:16
+  Rendered product/list.html.erb within layouts/application (Duration: 44.9ms | Allocations: 7614)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 349.2ms | Allocations: 25660)
+Completed 200 OK in 430ms (Views: 348.0ms | ActiveRecord: 21.0ms | Allocations: 30799)
+
+
+Started GET "/" for ::1 at 2021-11-27 10:28:51 +0200
+  [1m[35m (1.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by ProductController#list as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering product/list.html.erb within layouts/application
+  [1m[36mProduct Load (0.9ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."isDeleted" = $1[0m  [["isDeleted", false]]
+  ↳ app/views/product/list.html.erb:16
+  Rendered product/list.html.erb within layouts/application (Duration: 29.4ms | Allocations: 7622)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 190.3ms | Allocations: 25667)
+Completed 200 OK in 232ms (Views: 190.6ms | ActiveRecord: 9.8ms | Allocations: 30820)
+
+
+Started GET "/" for ::1 at 2021-11-27 10:38:21 +0200
+  [1m[35m (1.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by ProductController#list as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering product/list.html.erb within layouts/application
+  [1m[36mProduct Load (6.5ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."isDeleted" = $1[0m  [["isDeleted", false]]
+  ↳ app/views/product/list.html.erb:16
+  Rendered product/list.html.erb within layouts/application (Duration: 37.9ms | Allocations: 7622)
+[Webpacker] Compiling...
+[Webpacker] Compilation failed:
+Hash: 2d350fe702bc950f24e5
+Version: webpack 4.46.0
+Time: 2290ms
+Built at: 27/11/2021 10:38:28
+                                         Asset       Size           Chunks                         Chunk Names
+        js/application-fdf225e4e6c2fc7e9566.js    135 KiB      application  [emitted] [immutable]  application
+    js/application-fdf225e4e6c2fc7e9566.js.map    148 KiB      application  [emitted] [dev]        application
+    js/src/application-11dd197916084fc09f3c.js     13 KiB  src/application  [emitted] [immutable]  src/application
+js/src/application-11dd197916084fc09f3c.js.map   12.7 KiB  src/application  [emitted] [dev]        src/application
+                                 manifest.json  731 bytes                   [emitted]              
+Entrypoint application = js/application-fdf225e4e6c2fc7e9566.js js/application-fdf225e4e6c2fc7e9566.js.map
+Entrypoint src/application = js/src/application-11dd197916084fc09f3c.js js/src/application-11dd197916084fc09f3c.js.map
+[./app/javascript/channels sync recursive _channel\.js$] ./app/javascript/channels sync _channel\.js$ 160 bytes {application} [built]
+[./app/javascript/channels/index.js] 211 bytes {application} [built]
+[./app/javascript/packs/application.js] 732 bytes {application} [built]
+[./app/javascript/packs/src/application.scss] 676 bytes {src/application} {application} [built]
+[./node_modules/css-loader/dist/cjs.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./app/javascript/packs/src/application.scss] ./node_modules/css-loader/dist/cjs.js??ref--6-1!./node_modules/postcss-loader/src??ref--6-2!./node_modules/sass-loader/dist/cjs.js??ref--6-3!./app/javascript/packs/src/application.scss 298 bytes {application} {src/application} [built] [failed] [1 error]
+[./node_modules/webpack/buildin/module.js] (webpack)/buildin/module.js 552 bytes {application} [built]
+    + 4 hidden modules
+
+ERROR in ./app/javascript/packs/src/application.scss (./node_modules/css-loader/dist/cjs.js??ref--6-1!./node_modules/postcss-loader/src??ref--6-2!./node_modules/sass-loader/dist/cjs.js??ref--6-3!./app/javascript/packs/src/application.scss)
+Module build failed (from ./node_modules/sass-loader/dist/cjs.js):
+SassError: Can't find stylesheet to import.
+  ╷
+1 │ @import '~bootstrap/scss/bootstrap';
+  │         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  ╵
+  app/javascript/packs/src/application.scss 1:9  root stylesheet
+ @ ./app/javascript/packs/src/application.scss 2:26-237
+
+ERROR in ./app/javascript/packs/application.js
+Module not found: Error: Can't resolve 'bootstrap' in '/Users/redgeraldnyamadzavo/Desktop/RubyOnRails/postgress/myapp/app/javascript/packs'
+ @ ./app/javascript/packs/application.js 10:0-19
+
+  Rendered layout layouts/application.html.erb (Duration: 6874.7ms | Allocations: 26883)
+Completed 200 OK in 6919ms (Views: 6872.9ms | ActiveRecord: 12.8ms | Allocations: 32036)
+
+
+Started GET "/" for ::1 at 2021-11-27 10:44:53 +0200
+  [1m[35m (2.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by ProductController#list as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering product/list.html.erb within layouts/application
+  [1m[36mProduct Load (8.9ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."isDeleted" = $1[0m  [["isDeleted", false]]
+  ↳ app/views/product/list.html.erb:16
+  Rendered product/list.html.erb within layouts/application (Duration: 40.0ms | Allocations: 7622)
+[Webpacker] Compiling...
+[Webpacker] Compiled all packs in /Users/redgeraldnyamadzavo/Desktop/RubyOnRails/postgress/myapp/public/packs
+[Webpacker] Hash: c120974e559affe5b788
+Version: webpack 4.46.0
+Time: 21377ms
+Built at: 27/11/2021 10:45:19
+                                         Asset       Size           Chunks                         Chunk Names
+        js/application-98c20bfc6b97b2160485.js   1.18 MiB      application  [emitted] [immutable]  application
+    js/application-98c20bfc6b97b2160485.js.map    1.2 MiB      application  [emitted] [dev]        application
+    js/src/application-83b2099743c90980f044.js    760 KiB  src/application  [emitted] [immutable]  src/application
+js/src/application-83b2099743c90980f044.js.map    792 KiB  src/application  [emitted] [dev]        src/application
+                                 manifest.json  731 bytes                   [emitted]              
+Entrypoint application = js/application-98c20bfc6b97b2160485.js js/application-98c20bfc6b97b2160485.js.map
+Entrypoint src/application = js/src/application-83b2099743c90980f044.js js/src/application-83b2099743c90980f044.js.map
+[./app/javascript/channels sync recursive _channel\.js$] ./app/javascript/channels sync _channel\.js$ 160 bytes {application} [built]
+[./app/javascript/channels/index.js] 211 bytes {application} [built]
+[./app/javascript/packs/application.js] 732 bytes {application} [built]
+[./app/javascript/packs/src/application.scss] 676 bytes {src/application} {application} [built]
+[./node_modules/css-loader/dist/cjs.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./app/javascript/packs/src/application.scss] ./node_modules/css-loader/dist/cjs.js??ref--6-1!./node_modules/postcss-loader/src??ref--6-2!./node_modules/sass-loader/dist/cjs.js??ref--6-3!./app/javascript/packs/src/application.scss 745 KiB {application} {src/application} [built]
+[./node_modules/webpack/buildin/module.js] (webpack)/buildin/module.js 552 bytes {application} [built]
+    + 64 hidden modules
+
+  Rendered layout layouts/application.html.erb (Duration: 26398.6ms | Allocations: 27010)
+Completed 200 OK in 26466ms (Views: 26395.6ms | ActiveRecord: 33.2ms | Allocations: 32163)
+
+
+Started POST "/sale/cart" for ::1 at 2021-11-27 10:46:47 +0200
+Processing by SaleController#cart as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "cart"=>{"product_id"=>"6", "name"=>"Tanganda", "price"=>"1.0", "date"=>"27/11/2021", "quantity"=>"10"}}
+Redirected to http://localhost:3000/
+Completed 302 Found in 9ms (ActiveRecord: 0.0ms | Allocations: 486)
+
+
+Started GET "/" for ::1 at 2021-11-27 10:46:47 +0200
+Processing by ProductController#list as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering product/list.html.erb within layouts/application
+  [1m[36mProduct Load (1.8ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."isDeleted" = $1[0m  [["isDeleted", false]]
+  ↳ app/views/product/list.html.erb:16
+  Rendered product/list.html.erb within layouts/application (Duration: 23.2ms | Allocations: 947)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 69.7ms | Allocations: 8802)
+Completed 200 OK in 79ms (Views: 71.6ms | ActiveRecord: 1.8ms | Allocations: 9295)
+
+
+Started GET "/authentication/sign" for ::1 at 2021-11-27 10:51:31 +0200
+Processing by AuthenticationController#sign as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering authentication/sign.html.erb within layouts/application
+  Rendered authentication/sign.html.erb within layouts/application (Duration: 23.6ms | Allocations: 807)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 105.9ms | Allocations: 8614)
+Completed 200 OK in 141ms (Views: 120.3ms | ActiveRecord: 0.0ms | Allocations: 9534)
+
+
+Started POST "/authentication/signin" for ::1 at 2021-11-27 10:51:40 +0200
+Processing by AuthenticationController#signin as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"email"=>"englon@englon.com", "password"=>"[FILTERED]"}, "commit"=>"Sign In"}
+  [1m[36mUser Load (75.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "englon@englon.com"], ["LIMIT", 1]]
+  ↳ app/controllers/authentication_controller.rb:6:in `signin'
+  Rendering layout layouts/application.html.erb
+  Rendering authentication/sign.html.erb within layouts/application
+  Rendered authentication/sign.html.erb within layouts/application (Duration: 1.8ms | Allocations: 345)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 42.8ms | Allocations: 8187)
+Completed 200 OK in 213ms (Views: 45.2ms | ActiveRecord: 90.9ms | Allocations: 10508)
+
+
+Started GET "/user/new" for ::1 at 2021-11-27 10:51:45 +0200
+Processing by UserController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering user/new.html.erb within layouts/application
+  [1m[36mAccessLevel Load (19.4ms)[0m  [1m[34mSELECT "access_levels".* FROM "access_levels"[0m
+  ↳ app/views/user/new.html.erb:28
+  Rendered user/new.html.erb within layouts/application (Duration: 47.9ms | Allocations: 3087)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 65.8ms | Allocations: 10917)
+Completed 200 OK in 156ms (Views: 45.2ms | ActiveRecord: 33.1ms | Allocations: 15304)
+
+
+Started POST "/user/create" for ::1 at 2021-11-27 10:52:16 +0200
+Processing by UserController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"name"=>"Gerald Gerald", "email"=>"rnyamadzawo1994@gmail.com", "password"=>"[FILTERED]", "access_level_id"=>"1", "address"=>"test test"}, "commit"=>"Save User"}
+  [1m[36mTRANSACTION (6.4ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/user_controller.rb:20:in `create'
+  [1m[36mAccessLevel Load (1.2ms)[0m  [1m[34mSELECT "access_levels".* FROM "access_levels" WHERE "access_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/user_controller.rb:20:in `create'
+  [1m[36mUser Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "rnyamadzawo1994@gmail.com"], ["LIMIT", 1]]
+  ↳ app/controllers/user_controller.rb:20:in `create'
+  [1m[36mUser Create (19.3ms)[0m  [1m[32mINSERT INTO "users" ("access_level_id", "name", "email", "password", "address", "created_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["access_level_id", 1], ["name", "Gerald Gerald"], ["email", "rnyamadzawo1994@gmail.com"], ["password", "rnyamadzawo1994@gmail.com"], ["address", "test test"], ["created_at", "2021-11-27 08:52:17.002808"]]
+  ↳ app/controllers/user_controller.rb:20:in `create'
+  [1m[36mTRANSACTION (1.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/user_controller.rb:20:in `create'
+Redirected to http://localhost:3000/user/list
+Completed 302 Found in 145ms (ActiveRecord: 29.2ms | Allocations: 9324)
+
+
+Started GET "/user/list" for ::1 at 2021-11-27 10:52:17 +0200
+Processing by UserController#list as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering user/list.html.erb within layouts/application
+  Rendered user/list.html.erb within layouts/application (Duration: 4.7ms | Allocations: 362)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 47.8ms | Allocations: 8221)
+Completed 200 OK in 52ms (Views: 49.8ms | ActiveRecord: 0.0ms | Allocations: 8764)
+
+
+Started GET "/authentication/sign" for ::1 at 2021-11-27 10:52:44 +0200
+Processing by AuthenticationController#sign as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering authentication/sign.html.erb within layouts/application
+  Rendered authentication/sign.html.erb within layouts/application (Duration: 8.7ms | Allocations: 359)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 50.7ms | Allocations: 8199)
+Completed 200 OK in 65ms (Views: 58.6ms | ActiveRecord: 0.0ms | Allocations: 8588)
+
+
+Started POST "/authentication/signin" for ::1 at 2021-11-27 10:52:49 +0200
+Processing by AuthenticationController#signin as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"email"=>"rnyamadzawo1994@gmail.com", "password"=>"[FILTERED]"}, "commit"=>"Sign In"}
+  [1m[36mUser Load (1.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "rnyamadzawo1994@gmail.com"], ["LIMIT", 1]]
+  ↳ app/controllers/authentication_controller.rb:6:in `signin'
+  Rendering layout layouts/application.html.erb
+  Rendering authentication/sign.html.erb within layouts/application
+  Rendered authentication/sign.html.erb within layouts/application (Duration: 1.3ms | Allocations: 346)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 28.2ms | Allocations: 8191)
+Completed 200 OK in 48ms (Views: 29.0ms | ActiveRecord: 1.5ms | Allocations: 9305)
+
+
+Started POST "/authentication/signin" for ::1 at 2021-11-27 10:52:59 +0200
+Processing by AuthenticationController#signin as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"email"=>"rnyamadzawo1994@gmail.com", "password"=>"[FILTERED]"}, "commit"=>"Sign In"}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "rnyamadzawo1994@gmail.com"], ["LIMIT", 1]]
+  ↳ app/controllers/authentication_controller.rb:6:in `signin'
+Redirected to http://localhost:3000/authentication/dashboard?notice=Logged+in+successfully
+Completed 302 Found in 21ms (ActiveRecord: 0.7ms | Allocations: 1022)
+
+
+Started GET "/authentication/dashboard?notice=Logged+in+successfully" for ::1 at 2021-11-27 10:52:59 +0200
+Processing by AuthenticationController#dashboard as HTML
+  Parameters: {"notice"=>"Logged in successfully"}
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  [1m[36mSale Load (55.7ms)[0m  [1m[34mSELECT "sales".* FROM "sales"[0m
+  ↳ app/controllers/authentication_controller.rb:34:in `dashboard'
+  [1m[36mProduct Load (5.2ms)[0m  [1m[34mSELECT "products".* FROM "products"[0m
+  ↳ app/controllers/authentication_controller.rb:40:in `dashboard'
+  Rendering layout layouts/application.html.erb
+  Rendering authentication/dashboard.html.erb within layouts/application
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/views/authentication/dashboard.html.erb:49
+  Rendered authentication/dashboard.html.erb within layouts/application (Duration: 7.4ms | Allocations: 1258)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 39.8ms | Allocations: 9044)
+Completed 200 OK in 190ms (Views: 43.9ms | ActiveRecord: 77.4ms | Allocations: 15015)
+
+
+Started GET "/authentication/dashboard?notice=Logged+in+successfully" for ::1 at 2021-11-27 10:54:40 +0200
+Processing by AuthenticationController#dashboard as HTML
+  Parameters: {"notice"=>"Logged in successfully"}
+  [1m[36mUser Load (1.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  [1m[36mSale Load (0.7ms)[0m  [1m[34mSELECT "sales".* FROM "sales"[0m
+  ↳ app/controllers/authentication_controller.rb:34:in `dashboard'
+  [1m[36mProduct Load (0.5ms)[0m  [1m[34mSELECT "products".* FROM "products"[0m
+  ↳ app/controllers/authentication_controller.rb:40:in `dashboard'
+  Rendering layout layouts/application.html.erb
+  Rendering authentication/dashboard.html.erb within layouts/application
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/views/authentication/dashboard.html.erb:49
+  Rendered authentication/dashboard.html.erb within layouts/application (Duration: 4.7ms | Allocations: 730)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 53.9ms | Allocations: 8569)
+Completed 200 OK in 97ms (Views: 58.0ms | ActiveRecord: 3.0ms | Allocations: 10820)
+
+
+Started GET "/user/list" for ::1 at 2021-11-27 10:54:42 +0200
+Processing by UserController#list as HTML
+  [1m[36mUser Load (118.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering user/list.html.erb within layouts/application
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/views/user/list.html.erb:8
+  Rendered user/list.html.erb within layouts/application (Duration: 12.2ms | Allocations: 915)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 48.7ms | Allocations: 8773)
+Completed 200 OK in 183ms (Views: 49.4ms | ActiveRecord: 119.2ms | Allocations: 10491)
+
+
+Started GET "/user/show?id=1" for ::1 at 2021-11-27 10:54:46 +0200
+Processing by UserController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  [1m[36mUser Load (1.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/user_controller.rb:9:in `show'
+  Rendering layout layouts/application.html.erb
+  Rendering user/show.html.erb within layouts/application
+  [1m[36mAccessLevel Load (3.1ms)[0m  [1m[34mSELECT "access_levels".* FROM "access_levels"[0m
+  ↳ app/views/user/show.html.erb:28
+  Rendered user/show.html.erb within layouts/application (Duration: 13.2ms | Allocations: 1675)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 89.3ms | Allocations: 9532)
+Completed 200 OK in 159ms (Views: 86.9ms | ActiveRecord: 5.1ms | Allocations: 12039)
+
+
+Started POST "/user/update?id=1" for ::1 at 2021-11-27 10:54:52 +0200
+Processing by UserController#update as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"name"=>"test@test.com", "email"=>"test@test.com", "password"=>"[FILTERED]", "access_level_id"=>"1", "address"=>"200 nsw, aust 00"}, "commit"=>"Save User", "id"=>"1"}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/user_controller.rb:39:in `update'
+  [1m[36mTRANSACTION (6.5ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/user_controller.rb:41:in `update'
+  [1m[36mAccessLevel Load (0.6ms)[0m  [1m[34mSELECT "access_levels".* FROM "access_levels" WHERE "access_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/user_controller.rb:41:in `update'
+  [1m[36mUser Exists? (1.6ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 AND "users"."id" != $2 LIMIT $3[0m  [["email", "test@test.com"], ["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/user_controller.rb:41:in `update'
+  [1m[36mUser Update (10.8ms)[0m  [1m[33mUPDATE "users" SET "address" = $1 WHERE "users"."id" = $2[0m  [["address", "200 nsw, aust 00"], ["id", 1]]
+  ↳ app/controllers/user_controller.rb:41:in `update'
+  [1m[36mTRANSACTION (13.7ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/user_controller.rb:41:in `update'
+Redirected to http://localhost:3000/user/show?id=1
+Completed 302 Found in 73ms (ActiveRecord: 34.1ms | Allocations: 5752)
+
+
+Started GET "/user/show?id=1" for ::1 at 2021-11-27 10:54:52 +0200
+Processing by UserController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/user_controller.rb:9:in `show'
+  Rendering layout layouts/application.html.erb
+  Rendering user/show.html.erb within layouts/application
+  [1m[36mAccessLevel Load (0.4ms)[0m  [1m[34mSELECT "access_levels".* FROM "access_levels"[0m
+  ↳ app/views/user/show.html.erb:28
+  Rendered user/show.html.erb within layouts/application (Duration: 7.5ms | Allocations: 1159)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 26.0ms | Allocations: 9011)
+Completed 200 OK in 33ms (Views: 26.3ms | ActiveRecord: 0.9ms | Allocations: 10599)
+
+
+Started POST "/user/update?id=1" for ::1 at 2021-11-27 10:54:55 +0200
+Processing by UserController#update as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"name"=>"test@test.com", "email"=>"test@test.com", "password"=>"[FILTERED]", "access_level_id"=>"1", "address"=>"200 nsw, aust 00"}, "commit"=>"Save User", "id"=>"1"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  [1m[36mUser Load (4.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/user_controller.rb:39:in `update'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/user_controller.rb:41:in `update'
+  [1m[36mAccessLevel Load (0.4ms)[0m  [1m[34mSELECT "access_levels".* FROM "access_levels" WHERE "access_levels"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/user_controller.rb:41:in `update'
+  [1m[36mUser Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 AND "users"."id" != $2 LIMIT $3[0m  [["email", "test@test.com"], ["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/user_controller.rb:41:in `update'
+  [1m[36mTRANSACTION (1.7ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/user_controller.rb:41:in `update'
+Redirected to http://localhost:3000/user/show?id=1
+Completed 302 Found in 28ms (ActiveRecord: 7.5ms | Allocations: 4960)
+
+
+Started GET "/user/show?id=1" for ::1 at 2021-11-27 10:54:55 +0200
+Processing by UserController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/user_controller.rb:9:in `show'
+  Rendering layout layouts/application.html.erb
+  Rendering user/show.html.erb within layouts/application
+  [1m[36mAccessLevel Load (0.3ms)[0m  [1m[34mSELECT "access_levels".* FROM "access_levels"[0m
+  ↳ app/views/user/show.html.erb:28
+  Rendered user/show.html.erb within layouts/application (Duration: 3.8ms | Allocations: 1159)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 19.2ms | Allocations: 9011)
+Completed 200 OK in 29ms (Views: 19.5ms | ActiveRecord: 1.1ms | Allocations: 10598)
+
+
+Started GET "/user/list" for ::1 at 2021-11-27 10:54:58 +0200
+Processing by UserController#list as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering user/list.html.erb within layouts/application
+  [1m[36mUser Load (2.4ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/views/user/list.html.erb:8
+  Rendered user/list.html.erb within layouts/application (Duration: 6.1ms | Allocations: 908)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 22.0ms | Allocations: 8764)
+Completed 200 OK in 67ms (Views: 20.2ms | ActiveRecord: 2.8ms | Allocations: 10465)
+
+
+Started GET "/authentication/dashboard" for ::1 at 2021-11-27 10:55:03 +0200
+Processing by AuthenticationController#dashboard as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  [1m[36mSale Load (0.4ms)[0m  [1m[34mSELECT "sales".* FROM "sales"[0m
+  ↳ app/controllers/authentication_controller.rb:34:in `dashboard'
+  [1m[36mProduct Load (1.6ms)[0m  [1m[34mSELECT "products".* FROM "products"[0m
+  ↳ app/controllers/authentication_controller.rb:40:in `dashboard'
+  Rendering layout layouts/application.html.erb
+  Rendering authentication/dashboard.html.erb within layouts/application
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/views/authentication/dashboard.html.erb:49
+  Rendered authentication/dashboard.html.erb within layouts/application (Duration: 4.2ms | Allocations: 730)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 20.9ms | Allocations: 8574)
+Completed 200 OK in 85ms (Views: 21.7ms | ActiveRecord: 2.9ms | Allocations: 11524)
+
+
+Started GET "/" for 127.0.0.1 at 2021-11-28 08:17:53 +0200
+  
+ActiveRecord::ConnectionNotEstablished (connection to server on socket "/tmp/.s.PGSQL.5432" failed: No such file or directory
+	Is the server running locally and accepting connections on that socket?
+):
+  
+activerecord (6.1.4.1) lib/active_record/connection_adapters/postgresql_adapter.rb:83:in `rescue in new_client'
+activerecord (6.1.4.1) lib/active_record/connection_adapters/postgresql_adapter.rb:77:in `new_client'
+activerecord (6.1.4.1) lib/active_record/connection_adapters/postgresql_adapter.rb:37:in `postgresql_connection'
+activerecord (6.1.4.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:882:in `public_send'
+activerecord (6.1.4.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:882:in `new_connection'
+activerecord (6.1.4.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:926:in `checkout_new_connection'
+activerecord (6.1.4.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:905:in `try_to_checkout_new_connection'
+activerecord (6.1.4.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:866:in `acquire_connection'
+activerecord (6.1.4.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:588:in `checkout'
+activerecord (6.1.4.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:428:in `connection'
+activerecord (6.1.4.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:1128:in `retrieve_connection'
+activerecord (6.1.4.1) lib/active_record/connection_handling.rb:327:in `retrieve_connection'
+activerecord (6.1.4.1) lib/active_record/connection_handling.rb:283:in `connection'
+activerecord (6.1.4.1) lib/active_record/migration.rb:611:in `connection'
+activerecord (6.1.4.1) lib/active_record/migration.rb:606:in `build_watcher'
+activerecord (6.1.4.1) lib/active_record/migration.rb:588:in `block in call'
+activerecord (6.1.4.1) lib/active_record/migration.rb:587:in `synchronize'
+activerecord (6.1.4.1) lib/active_record/migration.rb:587:in `call'
+actionpack (6.1.4.1) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (6.1.4.1) lib/active_support/callbacks.rb:98:in `run_callbacks'
+actionpack (6.1.4.1) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (6.1.4.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.1.4.1) lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+actionpack (6.1.4.1) lib/action_dispatch/middleware/debug_exceptions.rb:29:in `call'
+web-console (4.2.0) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.0) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.2.0) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.0) lib/web_console/middleware.rb:17:in `call'
+actionpack (6.1.4.1) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.1.4.1) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.1.4.1) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.1.4.1) lib/active_support/tagged_logging.rb:99:in `block in tagged'
+activesupport (6.1.4.1) lib/active_support/tagged_logging.rb:37:in `tagged'
+activesupport (6.1.4.1) lib/active_support/tagged_logging.rb:99:in `tagged'
+railties (6.1.4.1) lib/rails/rack/logger.rb:26:in `call'
+sprockets-rails (3.4.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (6.1.4.1) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.1.4.1) lib/action_dispatch/middleware/request_id.rb:26:in `call'
+rack (2.2.3) lib/rack/method_override.rb:24:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (6.1.4.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.1.4.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.1.4.1) lib/action_dispatch/middleware/static.rb:24:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.1.4.1) lib/action_dispatch/middleware/host_authorization.rb:98:in `call'
+rack-mini-profiler (2.3.3) lib/mini_profiler/profiler.rb:393:in `call'
+webpacker (5.4.3) lib/webpacker/dev_server_proxy.rb:25:in `perform_request'
+rack-proxy (0.7.0) lib/rack/proxy.rb:63:in `call'
+railties (6.1.4.1) lib/rails/engine.rb:539:in `call'
+puma (5.5.2) lib/puma/configuration.rb:249:in `call'
+puma (5.5.2) lib/puma/request.rb:77:in `block in handle_request'
+puma (5.5.2) lib/puma/thread_pool.rb:340:in `with_force_shutdown'
+puma (5.5.2) lib/puma/request.rb:76:in `handle_request'
+puma (5.5.2) lib/puma/server.rb:447:in `process_client'
+puma (5.5.2) lib/puma/thread_pool.rb:147:in `block in spawn_thread'
+Started GET "/" for 127.0.0.1 at 2021-11-28 08:33:25 +0200
+  [1m[35m (4.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by ProductController#list as HTML
+  [1m[36mUser Load (3.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering product/list.html.erb within layouts/application
+  [1m[36mProduct Load (1.8ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."isDeleted" = $1[0m  [["isDeleted", false]]
+  ↳ app/views/product/list.html.erb:16
+  Rendered product/list.html.erb within layouts/application (Duration: 29.2ms | Allocations: 7178)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 334.1ms | Allocations: 25262)
+Completed 200 OK in 434ms (Views: 341.1ms | ActiveRecord: 21.4ms | Allocations: 36053)
+
+
+Started GET "/authentication/dashboard" for 127.0.0.1 at 2021-11-28 08:33:31 +0200
+Processing by AuthenticationController#dashboard as HTML
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  [1m[36mSale Load (6.6ms)[0m  [1m[34mSELECT "sales".* FROM "sales"[0m
+  ↳ app/controllers/authentication_controller.rb:34:in `dashboard'
+  [1m[36mProduct Load (0.7ms)[0m  [1m[34mSELECT "products".* FROM "products"[0m
+  ↳ app/controllers/authentication_controller.rb:40:in `dashboard'
+  Rendering layout layouts/application.html.erb
+  Rendering authentication/dashboard.html.erb within layouts/application
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/views/authentication/dashboard.html.erb:49
+  Rendered authentication/dashboard.html.erb within layouts/application (Duration: 5.8ms | Allocations: 1264)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 36.5ms | Allocations: 9073)
+Completed 200 OK in 93ms (Views: 40.2ms | ActiveRecord: 10.9ms | Allocations: 13428)
+
+

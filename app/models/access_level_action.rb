@@ -1,0 +1,2 @@
+class AccessLevelAction < ApplicationRecord
+end

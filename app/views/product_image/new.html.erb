@@ -1,0 +1,43 @@
+<% if session[:user_id]!=nil %>
+<div class="container">   
+<% if !@product_image.errors.empty? %>   
+     <div>   
+        <ul>   
+         <% @product_image.errors.full_messages.each do |msg| %>   
+            <li><%= msg %></li>   
+         <% end %>
+        </ul>
+    </div>
+    <% end %>   
+</div>
+
+<div class="container">   
+<% if !@product_image.errors.empty? %>   
+   <div>    
+        <ul>   
+            <% @product_image.errors.full_messages.each do |msg| %>   
+            <li><%= msg %></li>   
+            <% end %>     
+        </ul>   
+   </div>   
+<% end %>   
+</div>
+
+<div class="card mx-auto mt-5" style="width: 30rem;">   
+<div class="card-header">
+    <center><h1>Add Product Image<h1></center>
+  </div>
+   <%= form_for :product_image, html: { multipart: true } do |f| %>   
+      <%= f.label :name, :class =>'d-none' %>   
+      <%= f.text_field :name, :value=> session[:product_id], :class =>'d-none' -%>   
+      <br><br>   
+      <%= f.label :attachment -%>   
+      <%= f.file_field :attachment, :class => "form-control" %>   
+      <br>   
+      <%= f.submit "Save Image", :class => "btn btn-primary float-end" %>   
+   <% end %>   
+</div>   
+</div>  
+<% else %>
+<a href = "/authentication/sign"> Go to Log in </a>
+<% end %>

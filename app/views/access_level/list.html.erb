@@ -1,0 +1,13 @@
+<% if @access_levels.blank? %>
+<p>There are not any books currently in the system.</p>
+<% else %>
+<p>These are the current books in our system</p>
+
+<ul id = "books">
+   <% @access_levels.each do |c| %>
+   <li><%= link_to c.name, {:action => 'show', :id => c.id} -%></li>
+   <% end %>
+</ul>
+
+<% end %>
+<p><%= link_to "Add new Access Level", {:action => 'new' }%></p>

@@ -1,0 +1,39 @@
+<% session[:user_id]!=nil %>
+<% if session[:user_id]!=nil%>
+<a href="/authentication/dashboard"><button type="button" class="btn btn-primary float-start mt-0 m-5">Return to Dashboard</button></a>
+<a href="./new">
+    <button type="button" class="btn btn-success float-end m-5 mt-0">Add new User</button>
+  <a>
+<center>
+<% if @users.blank? %>
+<h1>No System User</h1>
+<% else %>
+<h1>System Users</h1>
+</center>
+
+<table class="table m-2 mt-0">
+  <thead>
+    <tr >
+      <th scope="col">UserID</th>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Address</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @users.each do |c| %>
+   <tr>
+      <td><%= c.id %></td>
+      <td><%= c.name %></td>
+      <td><%= c.email %></td>
+      <td><%= c.address %></td>
+      <td><%= link_to 'Edit', {:action => 'show', :id => c.id} -%></td>
+   </tr>
+   <% end %>
+  </tbody>
+</table>
+<% end %>
+<% else  %>
+<a href = "/authentication/sign"> Go to Log in </a>
+<% end %>

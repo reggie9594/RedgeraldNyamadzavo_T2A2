@@ -1,0 +1,46 @@
+<% if session[:user_id]!=nil %>
+<div class="card mx-auto mt-5" style="width: 50rem;">
+  <div class="card-header">
+    <h1>Add new Product<h1>
+  </div>
+  <div class="card-body">
+  <%= form_tag :action => 'create', method: :post, multipart: true do %>
+  
+    <div class="row">
+        <div class="col-md-6">
+            <p><label for = "name">Name</label>:
+            <%= text_field 'product', 'name' , :class => "form-control" %></p>
+        </div>
+        <div class="col-md-6">
+            <p><label for = "description">Description</label>:
+            <%= text_area 'product', 'description', :class => "form-control" %></p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <p><label for = "price">Price</label>:
+            <%= text_field 'product', 'price', :class => "form-control" %></p>
+        </div>
+        <div class="col-md-6">
+            <p><label for = "quantity">quantity</label>:
+            <%= number_field 'product', 'quantity', :class => "form-control" %></p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 d-none"> 
+            <p><label for = "user_id">Added By</label>:
+            <%=  number_field 'product', 'user_id', :value =>session[:user_id], :class => "form-control" %></p>
+        </div>
+    </div>
+    
+    
+    <%= submit_tag "Create Product", :class => "btn btn-primary float-end" %>
+    <%= link_to 'Back to Products', {:action => 'list'}, :class =>"float-start" %> 
+    <% end -%>
+  </div>
+</div>
+
+<% else %>
+<a href = "/authentication/sign"> Go to Log in </a>
+<% end %>

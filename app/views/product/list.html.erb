@@ -1,0 +1,118 @@
+
+
+<% if session[:user_id]!=nil%>
+   <div type="button" id="cart" class="bottom-0 end-0 m-4 position-absolute position-fixed .fade"  data-bs-toggle="modal" data-bs-target="#exampleModal">
+      Cart<%if session[:cart]%>(<%= session[:cart].length -%>) <% end %>
+   <img src="/uploads/product_image/attachment/icon/cart.svg"/>
+   </div>
+<a href="/authentication/dashboard"><button type="button" class="btn btn-primary float-start mt-0 m-5 d-none d-md-block">Return to Dashboard</button></a>
+<a href="/authentication/dashboard"><button type="button" class="btn btn-primary float-start mt-0 m-0 d-md-none">Dashboard</button></a>
+<% else  %>
+   <div type="button" id="cart" class="top-0 bottom-0 end-0 position-absolute m-4 mt-1 position-fixed" data-bs-toggle="modal" data-bs-target="#exampleModal">
+   Cart(<%= session[:cart]? session[:cart].length : 0-%>)
+   <img   src="/uploads/product_image/attachment/icon/cart.svg"/>
+   </div>
+<% end %>
+<% if @products.blank? %>
+<% if session[:user_id]!=nil%>
+   <a href="./new">
+      <button type="button" class="btn btn-success float-end m-5 mt-0 d-none d-md-block">Add new Product</button>
+      <button type="button" class="btn btn-success float-end m-0 mt-0 d-md-none"><div class="bi bi-plus-circle-fill"></div>Add Product</button>
+   </a>
+   <% end %>
+<% else %>
+<% if session[:user_id]!=nil%>
+   <a href="./new">
+      <button type="button" class="btn btn-success float-end m-5 mt-0 d-none d-md-block">Add new Product</button>
+      <button type="button" class="btn btn-success float-end m-0 mt-0 d-md-none"><div class="bi bi-plus-circle-fill"></div>Add Product</button>
+   </a>
+   <% end %>
+<center>
+   <h1 class="mb-5">Shop Products</h1>
+</center>
+<div id = "books" class="row" style="hight:4px;margin-right: 6%; margin-left: 4%;">
+   <% @products.each do |c| %>
+   <div class="col float-start" >
+      <div class="card mb-4 " style="min-hight:150px; width: 225px; hight:15rem" id="product">
+         <% if c.quantity>0 %>
+         <span class="position-absolute top-0 start-0 translate-middle badge rounded-pill bg-danger">
+            $<%= c.price -%>
+         </span>
+         
+         <% else %>
+         <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-danger">
+            Not in Stock
+         </span>
+         <% end %>
+         
+         <div class="card-body" id="productContain">
+         <% if session[:user_id]!=nil%>
+         <span class="position-absolute top-50 start-50 translate-middle badge rounded-pill actions">
+               <a href="<%= 'show?id='+c.id.to_s -%>" ><button type="button" class="btn btn-light btn-group-sm">Update</button></a>
+               <a href="<%= 'delete?id='+c.id.to_s -%>"><button type="button" class="btn btn-warning btn-group-sm">Delete</button></a>
+         </span>
+            <%= link_to c.name, {:action => 'show', :id => c.id} -%><br>
+         <% else %>
+            <%= c.name -%><br>
+         <% end %>
+            <img style="width: 98%; hight:100%" src="<%= c.imageurl -%>"/><br>
+            <small><%= c.description -%></small>
+         </div>
+         <div class="card-footer text-muted">
+            <%= form_tag :action => 'cart', :controller =>'sale' do %>
+            <div class=row>
+               <input name="cart[product_id]" value="<%= c.id -%>" class="col d-none form-control" type="number"/> 
+               <input name="cart[name]" value="<%= c.name -%>" class="col d-none form-control" type="text"/> 
+               <input name="cart[price]" value="<%= c.price -%>" class="col d-none form-control" type="text"/> 
+               <input name="cart[date]" value="<%= Time.now.strftime("%d/%m/%Y") -%>" class="col d-none form-control" type="text"/>
+               <input name="cart[quantity]" class="col form-control" value="0" type="number"/>   <button type="submit" class="btn btn-dark col form-control "><small> Cart</small></button>
+            </div>
+            <% end %>
+         </div>
+      </div>
+   </div>
+   <% end %>
+</div>
+
+<% end %>
+<!-- CART PROCESING -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Cart Checkout</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      <% if session[:cart] %>
+      <table class="table">
+      <thead>
+         <tr>
+            <th scope="col">Product No.</th>
+            <th scope="col">Name</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Price</th>
+         </tr>
+      </thead>
+      <tbody>
+         <% session[:cart].each do |c| %>
+            <tr>
+               <th scope="row"><%=c["product_id"] -%></th>
+               <td><%= c["name"] -%></td>
+               <td><%= c["quantity"] -%></td>
+               <td><%= c["price"] -%></td>
+            </tr>
+         <%end%>
+         </tbody>
+      </table>
+      <%end%>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+        <a href="sale/sale">
+         <button type="button" class="btn btn-primary">Checkout</button>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

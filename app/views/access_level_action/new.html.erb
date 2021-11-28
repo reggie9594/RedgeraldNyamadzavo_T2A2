@@ -1,0 +1,14 @@
+<h1>Add new Access Level Action</h1>
+
+<%= form_tag :action => 'create' do %>
+
+<p><label for = "action">Action</label>:
+<%= text_field 'access_level_actions', 'action' %></p>
+
+<p><label for = "access_level_id">Access Level</label>:
+<%= text_field 'access_level_actions', 'access_level_id' %></p>
+
+<%= submit_tag "Create" %>
+
+<% end -%>
+<%= link_to 'Back', {:action => 'list'} %> 
