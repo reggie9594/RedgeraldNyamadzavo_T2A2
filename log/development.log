@@ -2182,3 +2182,374 @@ Processing by AuthenticationController#dashboard as HTML
 Completed 200 OK in 93ms (Views: 40.2ms | ActiveRecord: 10.9ms | Allocations: 13428)
 
 
+Started GET "/" for 127.0.0.1 at 2021-11-28 18:27:26 +0200
+  
+ActiveRecord::ConnectionNotEstablished (connection to server on socket "/tmp/.s.PGSQL.5432" failed: No such file or directory
+	Is the server running locally and accepting connections on that socket?
+):
+  
+activerecord (6.1.4.1) lib/active_record/connection_adapters/postgresql_adapter.rb:83:in `rescue in new_client'
+activerecord (6.1.4.1) lib/active_record/connection_adapters/postgresql_adapter.rb:77:in `new_client'
+activerecord (6.1.4.1) lib/active_record/connection_adapters/postgresql_adapter.rb:37:in `postgresql_connection'
+activerecord (6.1.4.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:882:in `public_send'
+activerecord (6.1.4.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:882:in `new_connection'
+activerecord (6.1.4.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:926:in `checkout_new_connection'
+activerecord (6.1.4.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:905:in `try_to_checkout_new_connection'
+activerecord (6.1.4.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:866:in `acquire_connection'
+activerecord (6.1.4.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:588:in `checkout'
+activerecord (6.1.4.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:428:in `connection'
+activerecord (6.1.4.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:1128:in `retrieve_connection'
+activerecord (6.1.4.1) lib/active_record/connection_handling.rb:327:in `retrieve_connection'
+activerecord (6.1.4.1) lib/active_record/connection_handling.rb:283:in `connection'
+activerecord (6.1.4.1) lib/active_record/migration.rb:611:in `connection'
+activerecord (6.1.4.1) lib/active_record/migration.rb:606:in `build_watcher'
+activerecord (6.1.4.1) lib/active_record/migration.rb:588:in `block in call'
+activerecord (6.1.4.1) lib/active_record/migration.rb:587:in `synchronize'
+activerecord (6.1.4.1) lib/active_record/migration.rb:587:in `call'
+actionpack (6.1.4.1) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (6.1.4.1) lib/active_support/callbacks.rb:98:in `run_callbacks'
+actionpack (6.1.4.1) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (6.1.4.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.1.4.1) lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+actionpack (6.1.4.1) lib/action_dispatch/middleware/debug_exceptions.rb:29:in `call'
+web-console (4.2.0) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.0) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.2.0) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.0) lib/web_console/middleware.rb:17:in `call'
+actionpack (6.1.4.1) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.1.4.1) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.1.4.1) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.1.4.1) lib/active_support/tagged_logging.rb:99:in `block in tagged'
+activesupport (6.1.4.1) lib/active_support/tagged_logging.rb:37:in `tagged'
+activesupport (6.1.4.1) lib/active_support/tagged_logging.rb:99:in `tagged'
+railties (6.1.4.1) lib/rails/rack/logger.rb:26:in `call'
+sprockets-rails (3.4.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (6.1.4.1) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.1.4.1) lib/action_dispatch/middleware/request_id.rb:26:in `call'
+rack (2.2.3) lib/rack/method_override.rb:24:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (6.1.4.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.1.4.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.1.4.1) lib/action_dispatch/middleware/static.rb:24:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.1.4.1) lib/action_dispatch/middleware/host_authorization.rb:98:in `call'
+rack-mini-profiler (2.3.3) lib/mini_profiler/profiler.rb:393:in `call'
+webpacker (5.4.3) lib/webpacker/dev_server_proxy.rb:25:in `perform_request'
+rack-proxy (0.7.0) lib/rack/proxy.rb:63:in `call'
+railties (6.1.4.1) lib/rails/engine.rb:539:in `call'
+puma (5.5.2) lib/puma/configuration.rb:249:in `call'
+puma (5.5.2) lib/puma/request.rb:77:in `block in handle_request'
+puma (5.5.2) lib/puma/thread_pool.rb:340:in `with_force_shutdown'
+puma (5.5.2) lib/puma/request.rb:76:in `handle_request'
+puma (5.5.2) lib/puma/server.rb:447:in `process_client'
+puma (5.5.2) lib/puma/thread_pool.rb:147:in `block in spawn_thread'
+Started GET "/" for 127.0.0.1 at 2021-11-28 18:29:05 +0200
+  [1m[35m (4.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by ProductController#list as HTML
+  [1m[36mUser Load (3.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering product/list.html.erb within layouts/application
+  [1m[36mProduct Load (1.9ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."isDeleted" = $1[0m  [["isDeleted", false]]
+  ↳ app/views/product/list.html.erb:16
+  Rendered product/list.html.erb within layouts/application (Duration: 46.7ms | Allocations: 7093)
+[Webpacker] Compiling...
+[Webpacker] Compiled all packs in /Users/redgeraldnyamadzavo/Desktop/RubyOnRails/postgress/myapp/public/packs
+[Webpacker] DEPRECATION WARNING: Using / for division is deprecated and will be removed in Dart Sass 2.0.0.
+
+Recommendation: math.div($spacer, 2)
+
+More info and automated migrator: https://sass-lang.com/d/slash-div
+
+    ╷
+298 │ $headings-margin-bottom:      $spacer / 2 !default;
+    │                               ^^^^^^^^^^^
+    ╵
+    node_modules/bootstrap/scss/_variables.scss 298:31  @import
+    node_modules/bootstrap/scss/bootstrap.scss 9:9      @import
+    app/javascript/packs/src/application.scss 1:9       root stylesheet
+
+DEPRECATION WARNING: Using / for division is deprecated and will be removed in Dart Sass 2.0.0.
+
+Recommendation: math.div($input-padding-y, 2)
+
+More info and automated migrator: https://sass-lang.com/d/slash-div
+
+    ╷
+493 │ $input-height-inner-quarter:            calc(#{$input-line-height * .25em} + #{$input-padding-y / 2}) !default;
+    │                                                                                ^^^^^^^^^^^^^^^^^^^^
+    ╵
+    node_modules/bootstrap/scss/_variables.scss 493:80  @import
+    node_modules/bootstrap/scss/bootstrap.scss 9:9      @import
+    app/javascript/packs/src/application.scss 1:9       root stylesheet
+
+DEPRECATION WARNING: Using / for division is deprecated and will be removed in Dart Sass 2.0.0.
+
+Recommendation: math.div($custom-control-indicator-size, 2)
+
+More info and automated migrator: https://sass-lang.com/d/slash-div
+
+    ╷
+560 │ $custom-switch-indicator-border-radius:         $custom-control-indicator-size / 2 !default;
+    │                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ╵
+    node_modules/bootstrap/scss/_variables.scss 560:49  @import
+    node_modules/bootstrap/scss/bootstrap.scss 9:9      @import
+    app/javascript/packs/src/application.scss 1:9       root stylesheet
+
+DEPRECATION WARNING: Using / for division is deprecated and will be removed in Dart Sass 2.0.0.
+
+Recommendation: math.div($spacer, 2)
+
+More info and automated migrator: https://sass-lang.com/d/slash-div
+
+    ╷
+706 │ $nav-divider-margin-y:              $spacer / 2 !default;
+    │                                     ^^^^^^^^^^^
+    ╵
+    node_modules/bootstrap/scss/_variables.scss 706:37  @import
+    node_modules/bootstrap/scss/bootstrap.scss 9:9      @import
+    app/javascript/packs/src/application.scss 1:9       root stylesheet
+
+DEPRECATION WARNING: Using / for division is deprecated and will be removed in Dart Sass 2.0.0.
+
+Recommendation: math.div($spacer, 2)
+
+More info and automated migrator: https://sass-lang.com/d/slash-div
+
+    ╷
+711 │ $navbar-padding-y:                  $spacer / 2 !default;
+    │                                     ^^^^^^^^^^^
+    ╵
+    node_modules/bootstrap/scss/_variables.scss 711:37  @import
+    node_modules/bootstrap/scss/bootstrap.scss 9:9      @import
+    app/javascript/packs/src/application.scss 1:9       root stylesheet
+
+WARNING: 58 repetitive deprecation warnings omitted.
+
+
+[Webpacker] Hash: 323ba78ed29c87bde9ec
+Version: webpack 4.46.0
+Time: 14007ms
+Built at: 28/11/2021 18:29:26
+                                         Asset       Size           Chunks                         Chunk Names
+        js/application-80c69a204837e1869bda.js   1.29 MiB      application  [emitted] [immutable]  application
+    js/application-80c69a204837e1869bda.js.map   1.42 MiB      application  [emitted] [dev]        application
+    js/src/application-49aa2ad7f0ccb44d076f.js    670 KiB  src/application  [emitted] [immutable]  src/application
+js/src/application-49aa2ad7f0ccb44d076f.js.map    698 KiB  src/application  [emitted] [dev]        src/application
+                                 manifest.json  731 bytes                   [emitted]              
+Entrypoint application = js/application-80c69a204837e1869bda.js js/application-80c69a204837e1869bda.js.map
+Entrypoint src/application = js/src/application-49aa2ad7f0ccb44d076f.js js/src/application-49aa2ad7f0ccb44d076f.js.map
+[./app/javascript/channels sync recursive _channel\.js$] ./app/javascript/channels sync _channel\.js$ 160 bytes {application} [built]
+[./app/javascript/channels/index.js] 211 bytes {application} [built]
+[./app/javascript/packs/application.js] 732 bytes {application} [built]
+[./app/javascript/packs/src/application.scss] 676 bytes {src/application} {application} [built]
+[./node_modules/css-loader/dist/cjs.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./app/javascript/packs/src/application.scss] ./node_modules/css-loader/dist/cjs.js??ref--6-1!./node_modules/postcss-loader/src??ref--6-2!./node_modules/sass-loader/dist/cjs.js??ref--6-3!./app/javascript/packs/src/application.scss 655 KiB {application} {src/application} [built]
+[./node_modules/webpack/buildin/global.js] (webpack)/buildin/global.js 905 bytes {application} [built]
+[./node_modules/webpack/buildin/module.js] (webpack)/buildin/module.js 552 bytes {application} [built]
+    + 8 hidden modules
+
+  Rendered layout layouts/application.html.erb (Duration: 20427.6ms | Allocations: 26484)
+Completed 200 OK in 20537ms (Views: 20428.2ms | ActiveRecord: 23.7ms | Allocations: 36636)
+
+
+Started GET "/" for 127.0.0.1 at 2021-11-28 18:30:11 +0200
+Processing by ProductController#list as HTML
+  [1m[36mUser Load (1.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering product/list.html.erb within layouts/application
+  [1m[36mProduct Load (0.6ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."isDeleted" = $1[0m  [["isDeleted", false]]
+  ↳ app/views/product/list.html.erb:16
+  Rendered product/list.html.erb within layouts/application (Duration: 10.5ms | Allocations: 1001)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 173.1ms | Allocations: 8853)
+Completed 200 OK in 197ms (Views: 175.2ms | ActiveRecord: 2.2ms | Allocations: 9914)
+
+
+Started GET "/" for 127.0.0.1 at 2021-11-28 18:31:53 +0200
+  [1m[35m (1.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by ProductController#list as HTML
+  [1m[36mUser Load (2.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering product/list.html.erb within layouts/application
+  [1m[36mProduct Load (0.6ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."isDeleted" = $1[0m  [["isDeleted", false]]
+  ↳ app/views/product/list.html.erb:16
+  Rendered product/list.html.erb within layouts/application (Duration: 33.4ms | Allocations: 7178)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 259.5ms | Allocations: 25258)
+Completed 200 OK in 333ms (Views: 266.0ms | ActiveRecord: 12.7ms | Allocations: 36049)
+
+
+Started GET "/" for 127.0.0.1 at 2021-11-28 18:36:11 +0200
+  [1m[35m (1.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by ProductController#list as HTML
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering product/list.html.erb within layouts/application
+  [1m[36mProduct Load (0.7ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."isDeleted" = $1[0m  [["isDeleted", false]]
+  ↳ app/views/product/list.html.erb:16
+  Rendered product/list.html.erb within layouts/application (Duration: 32.7ms | Allocations: 7178)
+[Webpacker] Compiling...
+[Webpacker] Compilation failed:
+Hash: 2d350fe702bc950f24e5
+Version: webpack 4.46.0
+Time: 2037ms
+Built at: 28/11/2021 18:36:17
+                                         Asset       Size           Chunks                         Chunk Names
+        js/application-fdf225e4e6c2fc7e9566.js    135 KiB      application  [emitted] [immutable]  application
+    js/application-fdf225e4e6c2fc7e9566.js.map    148 KiB      application  [emitted] [dev]        application
+    js/src/application-11dd197916084fc09f3c.js     13 KiB  src/application  [emitted] [immutable]  src/application
+js/src/application-11dd197916084fc09f3c.js.map   12.7 KiB  src/application  [emitted] [dev]        src/application
+                                 manifest.json  731 bytes                   [emitted]              
+Entrypoint application = js/application-fdf225e4e6c2fc7e9566.js js/application-fdf225e4e6c2fc7e9566.js.map
+Entrypoint src/application = js/src/application-11dd197916084fc09f3c.js js/src/application-11dd197916084fc09f3c.js.map
+[./app/javascript/channels sync recursive _channel\.js$] ./app/javascript/channels sync _channel\.js$ 160 bytes {application} [built]
+[./app/javascript/channels/index.js] 211 bytes {application} [built]
+[./app/javascript/packs/application.js] 732 bytes {application} [built]
+[./app/javascript/packs/src/application.scss] 676 bytes {src/application} {application} [built]
+[./node_modules/css-loader/dist/cjs.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./app/javascript/packs/src/application.scss] ./node_modules/css-loader/dist/cjs.js??ref--6-1!./node_modules/postcss-loader/src??ref--6-2!./node_modules/sass-loader/dist/cjs.js??ref--6-3!./app/javascript/packs/src/application.scss 298 bytes {application} {src/application} [built] [failed] [1 error]
+[./node_modules/webpack/buildin/module.js] (webpack)/buildin/module.js 552 bytes {application} [built]
+    + 4 hidden modules
+
+ERROR in ./app/javascript/packs/src/application.scss (./node_modules/css-loader/dist/cjs.js??ref--6-1!./node_modules/postcss-loader/src??ref--6-2!./node_modules/sass-loader/dist/cjs.js??ref--6-3!./app/javascript/packs/src/application.scss)
+Module build failed (from ./node_modules/sass-loader/dist/cjs.js):
+SassError: Can't find stylesheet to import.
+  ╷
+1 │ @import '~bootstrap/scss/bootstrap';
+  │         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  ╵
+  app/javascript/packs/src/application.scss 1:9  root stylesheet
+ @ ./app/javascript/packs/src/application.scss 2:26-237
+
+ERROR in ./app/javascript/packs/application.js
+Module not found: Error: Can't resolve 'bootstrap' in '/Users/redgeraldnyamadzavo/Desktop/RubyOnRails/postgress/myapp/app/javascript/packs'
+ @ ./app/javascript/packs/application.js 10:0-19
+
+  Rendered layout layouts/application.html.erb (Duration: 5678.9ms | Allocations: 26429)
+Completed 200 OK in 5735ms (Views: 5683.1ms | ActiveRecord: 11.2ms | Allocations: 37220)
+
+
+Started GET "/" for 127.0.0.1 at 2021-11-28 18:39:36 +0200
+  [1m[35m (2.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by ProductController#list as HTML
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering product/list.html.erb within layouts/application
+  [1m[36mProduct Load (0.6ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."isDeleted" = $1[0m  [["isDeleted", false]]
+  ↳ app/views/product/list.html.erb:16
+  Rendered product/list.html.erb within layouts/application (Duration: 16.8ms | Allocations: 7178)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 173.4ms | Allocations: 25258)
+Completed 200 OK in 233ms (Views: 178.1ms | ActiveRecord: 10.9ms | Allocations: 36049)
+
+
+Started GET "/" for 127.0.0.1 at 2021-11-28 18:39:40 +0200
+Processing by ProductController#list as HTML
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering product/list.html.erb within layouts/application
+  [1m[36mProduct Load (0.5ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."isDeleted" = $1[0m  [["isDeleted", false]]
+  ↳ app/views/product/list.html.erb:16
+  Rendered product/list.html.erb within layouts/application (Duration: 4.5ms | Allocations: 1003)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 22.2ms | Allocations: 8858)
+Completed 200 OK in 77ms (Views: 22.4ms | ActiveRecord: 1.2ms | Allocations: 9943)
+
+
+Started GET "/" for 127.0.0.1 at 2021-11-28 18:39:41 +0200
+Processing by ProductController#list as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering product/list.html.erb within layouts/application
+  [1m[36mProduct Load (0.4ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."isDeleted" = $1[0m  [["isDeleted", false]]
+  ↳ app/views/product/list.html.erb:16
+  Rendered product/list.html.erb within layouts/application (Duration: 3.7ms | Allocations: 996)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 37.1ms | Allocations: 8850)
+Completed 200 OK in 43ms (Views: 37.5ms | ActiveRecord: 0.9ms | Allocations: 9933)
+
+
+Started GET "/" for 127.0.0.1 at 2021-11-28 18:39:41 +0200
+Processing by ProductController#list as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering product/list.html.erb within layouts/application
+  [1m[36mProduct Load (0.3ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."isDeleted" = $1[0m  [["isDeleted", false]]
+  ↳ app/views/product/list.html.erb:16
+  Rendered product/list.html.erb within layouts/application (Duration: 4.5ms | Allocations: 994)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 33.2ms | Allocations: 8846)
+Completed 200 OK in 40ms (Views: 33.5ms | ActiveRecord: 0.7ms | Allocations: 9906)
+
+
+Started GET "/" for 127.0.0.1 at 2021-11-28 18:39:42 +0200
+Processing by ProductController#list as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering product/list.html.erb within layouts/application
+  [1m[36mProduct Load (0.3ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."isDeleted" = $1[0m  [["isDeleted", false]]
+  ↳ app/views/product/list.html.erb:16
+  Rendered product/list.html.erb within layouts/application (Duration: 4.8ms | Allocations: 996)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 18.7ms | Allocations: 8850)
+Completed 200 OK in 24ms (Views: 19.3ms | ActiveRecord: 0.7ms | Allocations: 9932)
+
+
+Started GET "/" for 127.0.0.1 at 2021-11-28 18:39:43 +0200
+Processing by ProductController#list as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering product/list.html.erb within layouts/application
+  [1m[36mProduct Load (0.5ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."isDeleted" = $1[0m  [["isDeleted", false]]
+  ↳ app/views/product/list.html.erb:16
+  Rendered product/list.html.erb within layouts/application (Duration: 4.4ms | Allocations: 994)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 18.5ms | Allocations: 8847)
+Completed 200 OK in 25ms (Views: 18.9ms | ActiveRecord: 0.8ms | Allocations: 9908)
+
+
+Started GET "/" for 127.0.0.1 at 2021-11-28 18:41:51 +0200
+  [1m[35m (1.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by ProductController#list as HTML
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering product/list.html.erb within layouts/application
+  [1m[36mProduct Load (0.7ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."isDeleted" = $1[0m  [["isDeleted", false]]
+  ↳ app/views/product/list.html.erb:16
+  Rendered product/list.html.erb within layouts/application (Duration: 23.5ms | Allocations: 7178)
+[Webpacker] Compiling...
+[Webpacker] Compiled all packs in /Users/redgeraldnyamadzavo/Desktop/RubyOnRails/postgress/myapp/public/packs
+[Webpacker] Hash: 1572b7907c24d027a8ed
+Version: webpack 4.46.0
+Time: 11952ms
+Built at: 28/11/2021 18:42:08
+                                         Asset       Size           Chunks                         Chunk Names
+        js/application-c5b88bf1e0e42970e0e9.js   1.19 MiB      application  [emitted] [immutable]  application
+    js/application-c5b88bf1e0e42970e0e9.js.map    1.2 MiB      application  [emitted] [dev]        application
+    js/src/application-83b2099743c90980f044.js    760 KiB  src/application  [emitted] [immutable]  src/application
+js/src/application-83b2099743c90980f044.js.map    792 KiB  src/application  [emitted] [dev]        src/application
+                                 manifest.json  731 bytes                   [emitted]              
+Entrypoint application = js/application-c5b88bf1e0e42970e0e9.js js/application-c5b88bf1e0e42970e0e9.js.map
+Entrypoint src/application = js/src/application-83b2099743c90980f044.js js/src/application-83b2099743c90980f044.js.map
+[./app/javascript/channels sync recursive _channel\.js$] ./app/javascript/channels sync _channel\.js$ 160 bytes {application} [built]
+[./app/javascript/channels/index.js] 211 bytes {application} [built]
+[./app/javascript/packs/application.js] 732 bytes {application} [built]
+[./app/javascript/packs/src/application.scss] 676 bytes {src/application} {application} [built]
+[./node_modules/css-loader/dist/cjs.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./app/javascript/packs/src/application.scss] ./node_modules/css-loader/dist/cjs.js??ref--6-1!./node_modules/postcss-loader/src??ref--6-2!./node_modules/sass-loader/dist/cjs.js??ref--6-3!./app/javascript/packs/src/application.scss 745 KiB {application} {src/application} [built]
+[./node_modules/webpack/buildin/module.js] (webpack)/buildin/module.js 552 bytes {application} [built]
+    + 64 hidden modules
+
+  Rendered layout layouts/application.html.erb (Duration: 17156.6ms | Allocations: 26543)
+Completed 200 OK in 17217ms (Views: 17162.0ms | ActiveRecord: 10.7ms | Allocations: 37334)
+
+
