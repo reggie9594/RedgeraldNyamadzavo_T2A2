@@ -3287,3 +3287,18 @@ Processing by ProductController#list as HTML
 Completed 200 OK in 12463ms (Views: 12384.1ms | ActiveRecord: 15.6ms | Allocations: 163893)
 
 
+Started GET "/" for ::1 at 2021-11-29 13:28:51 +0200
+  [1m[35m (1.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by ProductController#list as HTML
+  [1m[36mUser Load (2.9ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `set_current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering product/list.html.erb within layouts/application
+  [1m[36mProduct Load (0.9ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."isDeleted" = $1[0m  [["isDeleted", false]]
+  ↳ app/views/product/list.html.erb:16
+  Rendered product/list.html.erb within layouts/application (Duration: 36.1ms | Allocations: 7194)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 216.3ms | Allocations: 26425)
+Completed 200 OK in 288ms (Views: 223.1ms | ActiveRecord: 13.5ms | Allocations: 37239)
+
+
