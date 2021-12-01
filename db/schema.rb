@@ -67,10 +67,12 @@ ActiveRecord::Schema.define(version: 2021_11_20_103755) do
     t.string "name", limit: 100, null: false
     t.float "price", null: false
     t.text "description"
-    t.text "imageurl"
+    t.string "imageurl"
     t.boolean "isDeleted", default: false
     t.integer "quantity", null: false
     t.datetime "created_at"
+    t.string "imagename"
+    t.string "attachment"
     t.index ["user_id"], name: "index_products_on_user_id"
   end
 

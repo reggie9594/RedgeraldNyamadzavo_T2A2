@@ -22,7 +22,7 @@ class ProductController < ApplicationController
          
         if @products.save!
             session[:product_id] =@products.id;
-           redirect_to :action => 'new', :controller => 'product_image'
+           redirect_to :action => 'list'
         else
            @products = Product.all
            render :action => 'new'
@@ -33,7 +33,7 @@ class ProductController < ApplicationController
         params.require(:productImage).permit(:image)
      end
      def product_params
-        params.require(:product).permit(:name, :price, :user_id, :quantity, :description)
+        params.require(:product).permit(:name, :price, :user_id, :quantity, :description, :imagename, :attachment)
      end
     
     def edit

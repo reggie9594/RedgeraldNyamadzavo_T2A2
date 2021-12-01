@@ -20,9 +20,11 @@ class SaleController < ApplicationController
         puts "***********************"
         end
         session[:customerArrivalTimestamp]=nil
+        session[:amountToBePaid]=0;
         session[:cart].each do |c|
             if c["quantity"].to_i>0
                 @sales = Sale.new(:product_id=>c["product_id"],:quantity=>c["quantity"], :price=>c["price"],:date=>c["date"])
+                session[:amountToBePaid]=session[:amountToBePaid]+c["quantity"].to_i*c["price"].to_i;
                 @sales.save
             end
         end
@@ -43,7 +45,7 @@ class SaleController < ApplicationController
                                     {
                                         amount: {
                                             currency_code: "USD",
-                                            value: "100.00"
+                                            value: session[:amountToBePaid]
                                         }
                                     }
                                 ]
@@ -55,9 +57,7 @@ class SaleController < ApplicationController
 
             # If call returns body in response, you can get the deserialized version from the result attribute of the response
             order = response.result
-            puts "***********Accepted**************"
-            puts order["links"][1]
-            puts "*************************"
+            session[:amountToBePaid]=0;
             redirect_to order["links"][1]["href"]
             # render :action =>'pay'
 

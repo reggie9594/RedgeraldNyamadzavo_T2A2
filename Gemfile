@@ -69,3 +69,4 @@ gem 'jquery-rails'
 gem 'paypal-checkout-sdk', '~> 1.0', '>= 1.0.1'
 gem 'bcrypt', '~> 3.1.7'
 gem 'turbolinks', '~> 5'
+gem "google-cloud-storage", "~> 1.11", require: false
