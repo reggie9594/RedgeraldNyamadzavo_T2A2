@@ -47,3 +47,4 @@ class ActionsController < ApplicationController
         redirect_to :action => 'list'
     end
 end
+# 
